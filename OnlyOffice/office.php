@@ -1,26 +1,29 @@
 <?php
+    $http_type = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) ? 'https://' : 'http://';
+    $dir = explode('/',__DIR__);
+    $pre = $http_type.$_SERVER['HTTP_HOST'].'/'.$dir[count($dir)-2].'/'.$dir[count($dir)-1];
     function jsAPI(){ // js api 地址
         // docker run -i -t -d -p 666:80 onlyoffice/documentserver
-        echo 'http://YourServerIP:666/web-apps/apps/api/documents/api.js';
+        if (strpos($_GET['api'],"api.js")) {
+            echo $_GET['api'];
+        } else {
+            echo 'http://'.$_GET['api'].'/web-apps/apps/api/documents/api.js';
+        }
     }
     function uniqidKey(){ // 文件唯一值，用于表示是否同时编辑文档
-        echo md5_file($_GET['src']);
+        echo md5_file($_GET['path']);
     }
     function pathFile(){ // 本地硬盘路径转下载路径
-        $http_type = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) ? 'https://' : 'http://';
-        $src = $_GET['src'];
-        $find = strpos($src,"/data/User/");
-        $path = $http_type . $_SERVER['SERVER_NAME'] . substr($src,$find);
-        echo $path;
+        echo $GLOBALS["pre"]."/file.php?path=" . $_GET['path'];
     }
     function cbUrl(){ // 文件保存回调
-        echo "http://YourServerIP/plugins/OnlyOffice/save.php?path=" . $_GET['src'];
+        echo $GLOBALS["pre"]."/save.php?path=" . $_GET['path'];
     }
     function fileInfo($type){ // 获取文件名，后缀
-        echo pathinfo($_GET['src'],$type);
+        echo pathinfo($_GET['path'],$type);
     }
     function wpsType(){
-        $type = strtolower(pathinfo($_GET['src'], PATHINFO_EXTENSION));
+        $type = strtolower(pathinfo($_GET['path'], PATHINFO_EXTENSION));
         $w = array("doc", "docm", "docx", "dot", "dotm", "dotx", "epub", "fodt", "htm", "html", "mht", "odt", "pdf", "rtf", "txt", "djvu", "xps");
         $p = array("fodp", "odp", "pot", "potm", "potx", "pps", "ppsm", "ppsx", "ppt", "pptm", "pptx");
         $s = array("csv", "fods", "ods", "xls", "xlsm", "xlsx", "xlt", "xltm", "xltx");

@@ -1,34 +1,28 @@
 <?php
-$src = $_GET['src'];
-echo $src;
+$path = $_GET['path'];
+echo "文件路径: ".$path;
 echo "<br/>";
-echo $_SERVER['SERVER_NAME'];
+echo "是否存在: ".(file_exists($path)==true?"是":"否");
 echo "<br/>";
-$http_type = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) ? 'https://' : 'http://';
-echo $http_type;
-echo "<br/>";
-$find = strpos($src,"/data/User/");
-echo $find;
-echo "<br/>";
-$path = $http_type . $_SERVER['SERVER_NAME'] . substr($src,$find);
-echo $path;
-echo "<br/>";
-$type = strtolower(pathinfo($src, PATHINFO_EXTENSION));
-echo $type;
-echo "<br/>";
-echo pathinfo($src,PATHINFO_BASENAME);
+$type = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+echo "文件名: ".pathinfo($path,PATHINFO_BASENAME);
 echo "<br/>";
 $w = array("doc", "docm", "docx", "dot", "dotm", "dotx", "epub", "fodt", "htm", "html", "mht", "odt", "pdf", "rtf", "txt", "djvu", "xps");
 $p = array("fodp", "odp", "pot", "potm", "potx", "pps", "ppsm", "ppsx", "ppt", "pptm", "pptx");
 $s = array("csv", "fods", "ods", "xls", "xlsm", "xlsx", "xlt", "xltm", "xltx");
 if (in_array($type,$w)) {
-    echo "text";
+    echo "类型: 文档".$type;
 } elseif (in_array($type,$p)){
-    echo "presentation";
+    echo "类型: 幻灯片".$type;
 } elseif (in_array($type,$s)){
-    echo "spreadsheet";
+    echo "类型: 表格".$type;
 } else {
-    echo "unkonwn";
+    echo "类型: 无法识别后缀名类型!";
 }
-// echo array_search($type,$w);
+echo "<br/>";
+$http_type = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) ? 'https://' : 'http://';
+echo "域名: ".$http_type.$_SERVER['HTTP_HOST'];
+echo "<br/>";
+$dir = explode('/',__DIR__);
+echo "下载地址: ".$http_type.$_SERVER['HTTP_HOST'].'/'.$dir[count($dir)-2].'/'.$dir[count($dir)-1].'/file.php?path='.$path;
 ?>
