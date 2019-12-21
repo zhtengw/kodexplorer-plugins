@@ -4,11 +4,10 @@
     }
     $data = json_decode($body_stream, TRUE);
     if ($data["status"] == 2){
-        $downloadUri = $data["url"];
-        if (($new_data = file_get_contents($downloadUri))===FALSE){
+        if (($new_office_content = file_get_contents($data["url"]))===FALSE){
             echo "Bad Response";
         } else {
-            file_put_contents($_GET['path'], $new_data, LOCK_EX);
+            file_put_contents($_GET['path'], $new_office_content, LOCK_EX);
         }
     }
     echo "{\"error\":0}";

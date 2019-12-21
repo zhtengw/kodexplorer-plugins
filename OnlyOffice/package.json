@@ -29,13 +29,6 @@
 			"desc":"{{LNG.Plugin.config.authDesc}}",
 			"require":1
 		},
-		"pluginAuthOpen":{
-			"type":"switch",
-			"value":0,
-			"display":"{{LNG.Plugin.config.authOpen}}",
-			"desc":"{{LNG.Plugin.config.authOpenDesc}}",
-			"require":1
-		},
 		"sep001":"<hr/>",
 		"openWith":{
 			"type":"radio",
@@ -48,10 +41,9 @@
 		},
 		"apiServer":{
 			"type":"input",
-			"value":"http://YourServerIP/plugins/OnlyOffice/office.php?src=",
+			"value":"http://47.107.226.98:666/web-apps/apps/api/documents/api.js",
 			"display":"{{LNG.OnlyOffice.Config.apiServer}}",
 			"desc":"{{LNG.OnlyOffice.Config.apiServerDesc}}",
-			"require":1
 		},
 		"fileExt":{
 			"type":"tags",
@@ -63,7 +55,7 @@
 			"type":"number",
 			"display":"{{LNG.Plugin.Config.fileSort}}",
 			"desc":"{{LNG.Plugin.Config.fileSortDesc}}",
-			"value":5,
+			"value":666666,
 		},
 	}
 }
