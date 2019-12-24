@@ -25,8 +25,7 @@ class OnlyOfficePlugin extends PluginBase{
 			}
 		}
 		$http_type = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) ? 'https://' : 'http://';
-		$dir = explode('/',__DIR__);
-		$pre = $http_type.$_SERVER['HTTP_HOST'].'/'.$dir[count($dir)-2].'/'.$dir[count($dir)-1];
+		$pre = $http_type.$_SERVER['HTTP_HOST'].substr(__DIR__,strlen($_SERVER["DOCUMENT_ROOT"]));
 		$config = $this->getConfig();
 		if (strlen($config['apiServer']) > 0) {
 		    header('Location:'.$pre.'/office.php?path='.rawurlencode($path).'&api='.$config['apiServer']);

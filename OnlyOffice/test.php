@@ -11,7 +11,7 @@ $w = array("doc", "docm", "docx", "dot", "dotm", "dotx", "epub", "fodt", "htm", 
 $p = array("fodp", "odp", "pot", "potm", "potx", "pps", "ppsm", "ppsx", "ppt", "pptm", "pptx");
 $s = array("csv", "fods", "ods", "xls", "xlsm", "xlsx", "xlt", "xltm", "xltx");
 if (in_array($type,$w)) {
-    echo "类型: 文档".$type;
+    echo "类型: 文档"     .$type;
 } elseif (in_array($type,$p)){
     echo "类型: 幻灯片".$type;
 } elseif (in_array($type,$s)){
@@ -23,6 +23,9 @@ echo "<br/>";
 $http_type = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) ? 'https://' : 'http://';
 echo "域名: ".$http_type.$_SERVER['HTTP_HOST'];
 echo "<br/>";
-$dir = explode('/',__DIR__);
-echo "下载地址: ".$http_type.$_SERVER['HTTP_HOST'].'/'.$dir[count($dir)-2].'/'.$dir[count($dir)-1].'/file.php?path='.$path;
+echo "URI: ".__DIR__."<br/>";
+echo "浏览器UA: ".$_SERVER["HTTP_USER_AGENT"]."<br/>";
+echo "网站根目录: ".$_SERVER["DOCUMENT_ROOT"]."<br/>";
+echo "插件目录: ".substr(__DIR__,strlen($_SERVER["DOCUMENT_ROOT"]))."<br/>";
+echo "下载地址: ".$http_type.$_SERVER['HTTP_HOST'].substr(__DIR__,strlen($_SERVER["DOCUMENT_ROOT"])).'/file.php?path='.$path;
 ?>

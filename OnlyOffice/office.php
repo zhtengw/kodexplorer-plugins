@@ -1,7 +1,7 @@
 <?php
     $http_type = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) ? 'https://' : 'http://';
     $dir = explode('/',__DIR__);
-    $pre = $http_type.$_SERVER['HTTP_HOST'].'/'.$dir[count($dir)-2].'/'.$dir[count($dir)-1];
+    $pre = $http_type.$_SERVER['HTTP_HOST'].substr(__DIR__,strlen($_SERVER["DOCUMENT_ROOT"]));
     function jsAPI(){ // js api 地址
         // docker run -i -t -d -p 666:80 onlyoffice/documentserver
         if (strpos($_GET['api'],"api.js")) {
@@ -14,10 +14,10 @@
         echo md5_file($_GET['path']);
     }
     function pathFile(){ // 本地硬盘路径转下载路径
-        echo $GLOBALS["pre"]."/file.php?path=" . $_GET['path'];
+        echo $GLOBALS["pre"]."/file.php?path=".$_GET['path'];
     }
     function cbUrl(){ // 文件保存回调
-        echo $GLOBALS["pre"]."/save.php?path=" . $_GET['path'];
+        echo $GLOBALS["pre"]."/save.php?path=".$_GET['path'];
     }
     function fileInfo($type){ // 获取文件名，后缀
         echo pathinfo($_GET['path'],$type);
