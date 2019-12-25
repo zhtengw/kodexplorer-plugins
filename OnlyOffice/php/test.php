@@ -1,4 +1,5 @@
 <?php
+
 $path = $_GET['path'];
 echo "文件路径: ".$path;
 echo "<br/>";

@@ -1,26 +1,10 @@
 <?php
     $http_type = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) ? 'https://' : 'http://';
-    $dir = explode('/',__DIR__);
     $pre = $http_type.$_SERVER['HTTP_HOST'].substr(__DIR__,strlen($_SERVER["DOCUMENT_ROOT"]));
-    function jsAPI(){ // js api 地址
-        // docker run -i -t -d -p 666:80 onlyoffice/documentserver
-        if (strpos($_GET['api'],"api.js")) {
-            echo $_GET['api'];
-        } else {
-            echo 'http://'.$_GET['api'].'/web-apps/apps/api/documents/api.js';
-        }
-    }
-    function uniqidKey(){ // 文件唯一值，用于表示是否同时编辑文档
-        echo md5_file($_GET['path']);
-    }
-    function pathFile(){ // 本地硬盘路径转下载路径
-        echo $GLOBALS["pre"]."/file.php?path=".$_GET['path'];
-    }
-    function cbUrl(){ // 文件保存回调
-        echo $GLOBALS["pre"]."/save.php?path=".$_GET['path'];
-    }
+    $pathFile = $pre."/file.php?path=".$_GET['path'];
+    $cbUrl = $pre."/save.php?path=".$_GET['path'];
     function fileInfo($type){ // 获取文件名，后缀
-        echo pathinfo($_GET['path'],$type);
+        return pathinfo($_GET['path'],$type);
     }
     function wpsType(){
         $type = strtolower(pathinfo($_GET['path'], PATHINFO_EXTENSION));
@@ -28,13 +12,13 @@
         $p = array("fodp", "odp", "pot", "potm", "potx", "pps", "ppsm", "ppsx", "ppt", "pptm", "pptx");
         $s = array("csv", "fods", "ods", "xls", "xlsm", "xlsx", "xlt", "xltm", "xltx");
         if (in_array($type,$w)) {
-            echo "text";
+            return "text";
         } elseif (in_array($type,$p)){
-            echo "presentation";
+            return "presentation";
         } elseif (in_array($type,$s)){
-            echo "spreadsheet";
+            return "spreadsheet";
         } else {
-            echo "unkonwn";
+            return "unkonwn";
         }
     }
 ?>
@@ -42,26 +26,35 @@
 <html style="height: 100%;">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>ONLYOFFICE Api Documentation</title>
+    <title>ONLYOFFICE Document Server</title>
 </head>
 <body style="height: 100%; margin: 0;">
     <div id="placeholder" style="height: 100%"></div>
-    <script type="text/javascript" src=<?php jsAPI(); ?>></script>
+    <script type="text/javascript" src=<?php echo $_GET['api']; ?>></script>
 
     <script type="text/javascript">
 
         window.docEditor = new DocsAPI.DocEditor("placeholder",
             {
                 "document": {
-                    "fileType": "<?php fileInfo(PATHINFO_EXTENSION); ?>",
-                    "key": "<?php uniqidKey(); ?>",
-                    "title": "<?php fileInfo(PATHINFO_BASENAME); ?>",
-                    "url": "<?php pathFile(); ?>",
+                    "fileType": "<?php echo fileInfo(PATHINFO_EXTENSION); ?>",
+                    "key": "<?php echo md5_file($_GET['path']); ?>",
+                    "title": " ",//<?php echo fileInfo(PATHINFO_BASENAME); ?>",
+                    "url": "<?php echo $pathFile; ?>",
                 },
-                "documentType": "<?php wpsType(); ?>",
+                "documentType": "<?php echo wpsType(); ?>",
                 "editorConfig": {
-                    "callbackUrl": "<?php cbUrl(); ?>",
+                    "callbackUrl": "<?php echo $cbUrl; ?>",
                     "lang": "zh-CN",
+                    "customization": {
+                        "chat": false,
+                        "commentAuthorOnly": false,
+                        "comments": false,
+                        "compactHeader": true,
+                        "compactToolbar": false,
+                        "help": false,
+                        "toolbarNoTabs": false,
+                    },
                 },
                 "height": "100%",
                 "width": "100%"

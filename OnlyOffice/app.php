@@ -28,9 +28,9 @@ class OnlyOfficePlugin extends PluginBase{
 		$pre = $http_type.$_SERVER['HTTP_HOST'].substr(__DIR__,strlen($_SERVER["DOCUMENT_ROOT"]));
 		$config = $this->getConfig();
 		if (strlen($config['apiServer']) > 0) {
-		    header('Location:'.$pre.'/office.php?path='.rawurlencode($path).'&api='.$config['apiServer']);
+		    header('Location:'.$pre.'/php/office.php?path='.rawurlencode($path).'&api='.$config['apiServer']);
 		} else {
-		    header('Location:'.$pre.'/test.php?path='.rawurlencode($path).'&api='.$config['apiServer']);
+		    header('Location:'.$pre.'/php/test.php?path='.rawurlencode($path).'&api='.$config['apiServer']);
 		}
 	}
 }
