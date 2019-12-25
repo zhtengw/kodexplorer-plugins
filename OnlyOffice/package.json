@@ -9,8 +9,8 @@
 	},
 	"description":"{{LNG.OnlyOffice.meta.desc}}",
 	"auther":{
-		"copyright":"http://017.sb",
-		"homePage":"http://017.sb"
+		"copyright":"sit17",
+		"homePage":"https://github.com/sit17"
 	},
 	"configItem":{
 		"formStyle":{
@@ -55,7 +55,7 @@
 			"type":"number",
 			"display":"{{LNG.Plugin.Config.fileSort}}",
 			"desc":"{{LNG.Plugin.Config.fileSortDesc}}",
-			"value":666666,
+			"value":10,
 		},
 	}
 }
