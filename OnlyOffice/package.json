@@ -41,7 +41,7 @@
 		},
 		"apiServer":{
 			"type":"input",
-			"value":"http://47.107.226.98:666/web-apps/apps/api/documents/api.js",
+			"value":"http://47.107.226.98:666",
 			"display":"{{LNG.OnlyOffice.Config.apiServer}}",
 			"desc":"{{LNG.OnlyOffice.Config.apiServerDesc}}",
 		},
