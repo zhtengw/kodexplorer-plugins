@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<!--
+<html style="height: 100%;">
+		-->
+<html>
+<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+		<title>DS test</title>
+	</head>
+	<body style="height: 100%; margin: 0;">
+    <div id="placeholder" style="height: 100%"></div>
+    		<h2>OnlyOffice Document Server paramaters:</h2>
+
+    <script type="text/javascript" src="<?php echo $config['apiServer']; ?>"></script>
+
+    <script type="text/javascript">
+            document.write("<?php echo $fileUrl.'<br/>'; ?>");
+            document.write("<?php echo $path.'<br/>'; ?>");
+            document.write("<?php echo $fileName.'<br/>'; ?>");
+            document.write("<?php echo $fileExt.'<br/>'; ?>");
+
+
+			document.write("<?php echo $config['apiServer'].'/web-apps/apps/api/documents/api.js<br/>'; ?>");\
+			document.write("<?php echo md5_file($path).'<br/>'; ?>");
+			document.write("<?php echo $this->getDocumentType($fileExt).'<br/>'; ?>");
+			document.write("<?php echo $cbUrl.'<br/>'; ?>");
+		</script>
+	</body>
+</html>
