@@ -2,23 +2,27 @@
 	"id":"OnlyOffice",
 	"name":"{{LNG.OnlyOffice.meta.name}}",
 	"title":"{{LNG.OnlyOffice.meta.title}}",
-	"version":"1.017",
+	"version":"2.0",
 	"category":"file",
 	"source":{
 		"icon":"{{pluginHost}}static/images/icon.png"
 	},
 	"description":"{{LNG.OnlyOffice.meta.desc}}",
 	"auther":{
-		"copyright":"sit17",
-		"homePage":"https://github.com/sit17"
+		"copyright":"zhtengw",
+		"homePage":"https://github.com/zhtengw"
 	},
 	"configItem":{
 		"formStyle":{
-			"className":"form-box-title-left",
+			"className":"",
 			"tabs":[
 				{
 					"name":"{{LNG.Plugin.tab.basic}}",
-					"field":["pluginAuth","pluginAuthOpen","sep001","openWith","apiServer"]
+					"field":["pluginAuth","pluginAuthOpen","sep001","openWith","fileExt","fileSort"]
+				},
+				{
+					"name":"{{LNG.OnlyOffice.Config.apiServer}}",
+					"field":["apiServer-http","apiServer-https"]
 				}
 			]
 		},
@@ -39,12 +43,6 @@
 				["window","{{LNG.Plugin.Config.openWithWindow}}"]
 			]
 		},
-		"apiServer":{
-			"type":"input",
-			"value":"http://47.107.226.98:666",
-			"display":"{{LNG.OnlyOffice.Config.apiServer}}",
-			"desc":"{{LNG.OnlyOffice.Config.apiServerDesc}}",
-		},
 		"fileExt":{
 			"type":"tags",
 			"display":"{{LNG.Plugin.Config.fileExt}}",
@@ -57,5 +55,19 @@
 			"desc":"{{LNG.Plugin.Config.fileSortDesc}}",
 			"value":10,
 		},
+		"apiServer-http":{
+		    "className":"form-box-title-right",
+			"type":"input",
+			"value":"47.107.226.98:666",
+			"display":"http://",
+			"desc":"<span class='grey-8'>/web-apps/apps/api/documents/api.js</span>",
+        },
+        "apiServer-https":{
+		    "className":"form-box-title-right",
+			"type":"input",
+			"value":"",
+			"display":"https://",
+			"desc":"<span class='grey-8'>/web-apps/apps/api/documents/api.js</span>{{LNG.OnlyOffice.Config.apiServerDesc}}",
+        },
 	}
 }

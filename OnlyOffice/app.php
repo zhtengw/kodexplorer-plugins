@@ -29,7 +29,15 @@ class OnlyOfficePlugin extends PluginBase {
         $cbUrl = $this->pluginHost.'php/save.php?path='.rawurlencode($path);
         
         $config = $this->getConfig();
-        if (strlen($config['apiServer']) > 0) {
+        if(substr(APP_HOST,0,8) == 'https://'){
+            $dsServer = $config['apiServer-https'];
+            $http_header = 'https://';
+        }else{
+            $dsServer = $config['apiServer-http'];
+            $http_header = 'http://';
+        }
+        $apiServer = $http_header.$dsServer;
+        if (strlen($dsServer) > 0) {
             include($this->pluginPath.'/php/office.php');
         } else {
             include($this->pluginPath.'/php/test.php');

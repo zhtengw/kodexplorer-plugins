@@ -26,8 +26,9 @@ echo "浏览器UA: ".$_SERVER["HTTP_USER_AGENT"]."<br/>";
 echo "网站根目录: ".$_SERVER["DOCUMENT_ROOT"]."<br/>";
 echo "插件目录: ".$this->pluginPath."<br/>";
 echo "下载地址: ".$fileUrl."<br/>";
-if (strlen($config['apiServer']) > 0) {
-    echo "OnlyOffice API地址: ".$config['apiServer']."/web-apps/apps/api/documents/api.js<br/>";
+echo "".APP_HOST."<br/>";
+if (strlen($dsServer) > 0) {
+    echo "OnlyOffice API地址: ".$apiServer."/web-apps/apps/api/documents/api.js<br/>";
 }else{
     echo "OnlyOffice API地址: 未填写，请在插件中心配置有效地址<br/>";
 }
