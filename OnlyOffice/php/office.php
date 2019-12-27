@@ -6,7 +6,7 @@
 </head>
 <body style="height: 100%; margin: 0;">
     <div id="placeholder" style="height: 100%"></div>
-    <script type="text/javascript" src="<?php echo $config['apiServer']; ?>/web-apps/apps/api/documents/api.js"></script>
+    <script type="text/javascript" src="<?php echo $apiServer; ?>/web-apps/apps/api/documents/api.js"></script>
 
     <script type="text/javascript">
 
