@@ -16,17 +16,17 @@ class PhotopeaPlugin extends PluginBase {
     }
     public function index() {
         if (substr($this->in['path'],0,4) == 'http') {
-            $path = $fileUrl = $this->in['path'];
+            $path = $this->in['path'];
         } else {
             $path = _DIR($this->in['path']);
-            $fileUrl = _make_file_proxy($path);
             if (!file_exists($path)) {
                 show_tips(LNG('not_exists'));
             }
         }
         $fileName = get_path_this($path);
         $fileExt = get_path_ext($path);
-        $saveUrl = $this->pluginHost.'php/save.php?path='.$path;
+        $fileUrl = $this->pluginHost.'php/fileproc.php?act=sent&path='.$path;
+        $saveUrl = $this->pluginHost.'php/fileproc.php?act=save&path='.$path;
         $fullUri = '{"files":["'.$fileUrl.'"],"server":{"version":1,"url":"'.$saveUrl.'","formats":["'.$fileExt.'"]}}';
 
         header('Location:https://www.photopea.com/#'.$fullUri);
