@@ -7,7 +7,9 @@
 	"source":{
 		"icon":"{{pluginHost}}static/images/icon.png",
 		"screenshoot":[
-			"{{pluginHost}}static/images/screenshot.png"
+			"{{pluginHost}}static/images/screenshot1.png",
+			"{{pluginHost}}static/images/screenshot2.png",
+			"{{pluginHost}}static/images/screenshot3.png"
 		]
 	},
 	"description":"{{LNG.Photopea.meta.desc}}",
