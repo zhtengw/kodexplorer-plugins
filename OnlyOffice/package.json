@@ -5,7 +5,12 @@
 	"version":"2.0",
 	"category":"file",
 	"source":{
-		"icon":"{{pluginHost}}static/images/icon.png"
+		"icon":"{{pluginHost}}static/images/icon.png",
+		"screenshoot":[
+			"{{pluginHost}}static/images/document-short.jpg",
+			"{{pluginHost}}static/images/presentation-short.jpg",
+			"{{pluginHost}}static/images/spreadsheet-short.jpg"
+		]
 	},
 	"description":"{{LNG.OnlyOffice.meta.desc}}",
 	"auther":{
