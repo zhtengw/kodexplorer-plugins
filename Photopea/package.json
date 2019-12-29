@@ -39,7 +39,7 @@
 			"type":"tags",
 			"display":"{{LNG.Plugin.Config.fileExt}}",
 			"desc":"{{LNG.Plugin.Config.fileExtDesc}}",
-			"value":"psd,xd,sketch,xcf,raw,bmp,jpg,jpeg,png,gif,tiff,svg,pdf,emf,webp,ppm,ico,dds,tga",
+			"value":"psd,psb,pbm,ai,xd,sketch,xcf,raw,bmp,jpg,jpeg,png,gif,tiff,iff,mpo,svg,pdf,emf,webp,ppm,ico,dds,tga",
 		},
 		"fileSort":{
 			"type":"number",
