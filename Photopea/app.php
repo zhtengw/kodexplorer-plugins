@@ -25,8 +25,8 @@ class PhotopeaPlugin extends PluginBase {
         }
         $fileName = get_path_this($path);
         $fileExt = get_path_ext($path);
-        $fileUrl = $this->pluginHost.'php/fileproc.php?act=sent&path='.$path;
-        $saveUrl = $this->pluginHost.'php/fileproc.php?act=save&path='.$path;
+        $fileUrl = $this->pluginHost.'php/handler.php?act=sent&path='.rawurlencode($path);
+        $saveUrl = $this->pluginHost.'php/handler.php?act=save&path='.rawurlencode($path);
         $fullUri = '{"files":["'.$fileUrl.'"],"server":{"version":1,"url":"'.$saveUrl.'","formats":["'.$fileExt.'"]}}';
 
         header('Location:https://www.photopea.com/#'.$fullUri);

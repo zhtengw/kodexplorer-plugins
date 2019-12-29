@@ -15,7 +15,7 @@
 	"description":"{{LNG.Photopea.meta.desc}}",
 	"auther":{
 		"copyright":"zhtengw",
-		"homePage":"https://github.com/zhtengw"
+		"homePage":"https://github.com/zhtengw/kodexplorer-plugins"
 	},
 	"configItem":{
 		"pluginAuth":{
