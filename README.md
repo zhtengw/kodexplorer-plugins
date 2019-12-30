@@ -1,5 +1,5 @@
 # KodExplorer Plugins
-## 支持KodExplorer版本 v4.40
+## 支持KodExplorer版本 v5.0
 
 ### OnlyOffice
 在线编辑office文档，此插件要求自己部署OnlyOffice文档服务器，可以使用docker快速部署：
