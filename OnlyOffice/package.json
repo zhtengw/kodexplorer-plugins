@@ -1,7 +1,7 @@
 {
 	"id":"OnlyOffice",
-	"name":"{{LNG.OnlyOffice.meta.name}}",
-	"title":"{{LNG.OnlyOffice.meta.title}}",
+	"name":"{{LNG['OnlyOffice.meta.name']}}",
+	"title":"{{LNG['OnlyOffice.meta.title']}}",
 	"version":"2.0",
 	"category":"file",
 	"source":{
@@ -12,67 +12,59 @@
 			"{{pluginHost}}static/images/spreadsheet-short.jpg"
 		]
 	},
-	"description":"{{LNG.OnlyOffice.meta.desc}}",
+	"description":"{{LNG['OnlyOffice.meta.desc']}}",
 	"auther":{
 		"copyright":"zhtengw",
 		"homePage":"https://github.com/zhtengw/kodexplorer-plugins"
 	},
 	"configItem":{
 		"formStyle":{
-			"className":"",
-			"tabs":[
-				{
-					"name":"{{LNG.Plugin.tab.basic}}",
-					"field":["pluginAuth","pluginAuthOpen","sep001","openWith","fileExt","fileSort"]
-				},
-				{
-					"name":"{{LNG.OnlyOffice.Config.apiServer}}",
-					"field":["apiServer-http","apiServer-https"]
-				}
-			]
+		    "className":"form-box-title-right",
+			"tabs":{
+				"{{LNG['admin.setting.base']}}":"pluginAuth,pluginAuthOpen,sep001,openWith,fileExt,fileSort",
+				"{{LNG['OnlyOffice.Config.apiServer']}}":"apiServer-http,apiServer-https"
+			}
 		},
 		"pluginAuth":{
 			"type":"userSelect",
-			"value":"all:1",
-			"display":"{{LNG.Plugin.config.auth}}",
-			"desc":"{{LNG.Plugin.config.authDesc}}",
+			"value":{"all":1},
+			"display":"{{LNG['admin.plugin.auth']}}",
+			"desc":"{{LNG['admin.plugin.authDesc']}}",
 			"require":1
 		},
 		"sep001":"<hr/>",
 		"openWith":{
 			"type":"radio",
 			"value":"dialog",
-			"display":"{{LNG.Plugin.Config.openWith}}",
-			"info":[
-				["dialog","{{LNG.Plugin.Config.openWithDilog}}"],
-				["window","{{LNG.Plugin.Config.openWithWindow}}"]
-			]
+			"display":"{{LNG['admin.plugin.openWith']}}",
+			"info":{
+				"dialog":"{{LNG['admin.plugin.openWithDilog']}}",
+				"window":"{{LNG['admin.plugin.openWithWindow']}}"
+			}
 		},
 		"fileExt":{
 			"type":"tags",
-			"display":"{{LNG.Plugin.Config.fileExt}}",
-			"desc":"{{LNG.Plugin.Config.fileExtDesc}}",
-			"value":"doc,docm,docx,dot,dotm,dotx,epub,fodt,htm,html,mht,odt,pdf,rtf,txt,djvu,xps,fodp,odp,pot,potm,potx,pps,ppsm,ppsx,ppt,pptm,pptx,csv,fods,ods,xls,xlsm,xlsx,xlt,xltm,xltx",
+			"display":"{{LNG['admin.plugin.fileExt']}}",
+			"desc":"{{LNG['admin.plugin.fileExtDesc']}}",
+			"value":"doc,docm,docx,dot,dotm,dotx,epub,fodt,htm,html,mht,odt,pdf,rtf,txt,djvu,xps,fodp,odp,pot,potm,potx,pps,ppsm,ppsx,ppt,pptm,pptx,csv,fods,ods,xls,xlsm,xlsx,xlt,xltm,xltx"
 		},
 		"fileSort":{
 			"type":"number",
-			"display":"{{LNG.Plugin.Config.fileSort}}",
-			"desc":"{{LNG.Plugin.Config.fileSortDesc}}",
-			"value":10,
+			"display":"{{LNG['admin.plugin.fileSort']}}",
+			"desc":"{{LNG['admin.plugin.fileSortDesc']}}",
+			"value":10
 		},
 		"apiServer-http":{
-		    "className":"form-box-title-right",
 			"type":"input",
 			"value":"47.107.226.98:666",
 			"display":"http://",
-			"desc":"<span class='grey-8'>/web-apps/apps/api/documents/api.js</span>",
+			"desc":"<span class='grey-8'>/web-apps/apps/api/documents/api.js</span>"
         },
         "apiServer-https":{
-		    "className":"form-box-title-right",
 			"type":"input",
 			"value":"",
 			"display":"https://",
-			"desc":"<span class='grey-8'>/web-apps/apps/api/documents/api.js</span>{{LNG.OnlyOffice.Config.apiServerDesc}}",
-        },
+			"desc":"<span class='grey-8'>/web-apps/apps/api/documents/api.js</span>{{LNG['OnlyOffice.Config.apiServerDesc']}}"
+        }
 	}
 }

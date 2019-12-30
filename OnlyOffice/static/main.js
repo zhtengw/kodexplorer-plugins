@@ -1,17 +1,14 @@
-kodReady.push(function(){
-	kodApp.add({
-		name:"OnlyOffice",
-		title:"{{LNG.OnlyOffice.meta.name}}",
-		icon:'{{pluginHost}}static/images/icon.png',
-		ext:"{{config.fileExt}}",
-		sort:"{{config.fileSort}}",
-		callback:function(path,ext){
-			var url = '{{pluginApi}}&path='+core.pathCommon(path);
-			if('window' == "{{config.openWith}}"){
-				window.open(url);
-			}else{
-				core.openDialog(url,core.icon(ext),htmlEncode(core.pathThis(path)));
-			}
-		}
-	});
+kodReady.push(function() {
+    Events.bind('explorer.kodApp.before', function(appList) {
+        appList.push({
+            name: "OnlyOffice",
+            title: "{{LNG['OnlyOffice.meta.name']}}",
+            icon: '{{pluginHost}}static/images/icon.png',
+            ext: "{{config.fileExt}}",
+            sort: "{{config.fileSort}}",
+			callback:function(){
+				core.openFile('{{pluginApi}}',"{{config.openWith}}",_.toArray(arguments));
+            }
+        });
+    });
 });
