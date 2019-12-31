@@ -23,9 +23,12 @@ class CADViewerPlugin extends PluginBase {
 			if (!file_exists($path)) {
 				show_tips(LNG('not_exists'));
 			}
-		}
+        }
+        $fileName = get_path_this(rawurldecode($this->in['path']));
 
-		$api = "https://sharecad.org/cadframe/load?url=";
-		header('Location: '.$api.urlencode($fileUrl));
+        $api = "https://sharecad.org/cadframe/load?url=";
+        $data = $api.urlencode($fileUrl);
+        //header('Location: '.$api.urlencode($fileUrl));
+        include(dirname(__FILE__).'/static/template.php');
     }
 }
