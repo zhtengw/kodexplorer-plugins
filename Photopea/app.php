@@ -13,20 +13,23 @@ class PhotopeaPlugin extends PluginBase {
         $this->echoFile('static/main.js');
     }
     public function index() {
-        if (substr($this->in['path'],0,4) == 'http') {
-            $path = $this->in['path'];
-        } else {
-            $path = _DIR($this->in['path']);
-            if (!file_exists($path)) {
-                show_tips(LNG('not_exists'));
-            }
-        }
-        $fileName = get_path_this($path);
-        $fileExt = get_path_ext($path);
-        $fileUrl = $this->pluginHost.'php/handler.php?act=sent&path='.rawurlencode($path);
-        $saveUrl = $this->pluginHost.'php/handler.php?act=save&path='.rawurlencode($path);
-        $fullUri = '{"files":["'.$fileUrl.'"],"server":{"version":1,"url":"'.$saveUrl.'","formats":["'.$fileExt.'"]}}';
+		$path = $this->filePath($this->in['path']);
+		$localFile = $this->pluginLocalFile($path);
+		$fileUrl = $this->filePathLink($this->in['path']).'&name=/'.$this->in['name'];
+		$fileUrl2 = $this->filePathLinkOut($this->in['path']);
+        $fileName = $this->fileInfo['name'];
+        $fileExt = get_path_ext($this->fileInfo['name']);
+        
 
-        header('Location:https://www.photopea.com/#'.$fullUri);
+//        $fileUrl = $this->pluginHost.'php/handler.php?act=sent&path='.$path;
+        $saveUrl = $this->pluginHost.'php/handler.php?act=save&path='.rawurlencode($localFile);
+        $fullUri = '{"files":["'.$fileUrl.'"],"resources":[],"server":{"version":1,"url":"'.$saveUrl.'","formats":["'.$fileExt.'"]},"environment":{},"script":""}';
+
+		$config = $this->getConfig();
+
+        //show_tips($fileUrl2);
+        header('Location:'.$this->pluginHost.'/static/photopea/#'.($fullUri));
+        //$this->pluginCacheFileSet($path, file_get_contents($localFile));
+        del_file($localFile);
     }
 }
