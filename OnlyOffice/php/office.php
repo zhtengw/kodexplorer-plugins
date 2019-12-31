@@ -6,22 +6,28 @@
 </head>
 <body style="height: 100%; margin: 0;">
     <div id="placeholder" style="height: 100%"></div>
-    <script type="text/javascript" src="<?php echo $apiServer; ?>/web-apps/apps/api/documents/api.js"></script>
+    <script type="text/javascript" src="<?php echo $option['apiServer']; ?>/web-apps/apps/api/documents/api.js"></script>
 
     <script type="text/javascript">
 
         window.docEditor = new DocsAPI.DocEditor("placeholder",
             {
                 "document": {
-                    "fileType": "<?php echo $fileExt; ?>",
-                    "key": "<?php echo md5_file($path); ?>",
-                    "title": " ",//<?php echo $fileName; ?>",
-                    "url": "<?php echo $fileUrl; ?>",
+                    "fileType": <?php var_export($option['fileType']); ?>,
+                    "key": <?php var_export($option['key']); ?>,
+                    "title": <?php var_export($option['title']); ?>,
+                    "url": <?php var_export($option['url']); ?>,
+                    "permissions": {
+                        "download": <?php var_export($option['canDownload']); ?>,
+                        "edit": <?php var_export($option['canEdit']); ?>,
+                        "print": <?php var_export($option['canPrint']); ?>,
+                    },
                 },
-                "documentType": "<?php echo $this->getDocumentType($fileExt); ?>",
+                "documentType": <?php var_export($option['documentType']); ?>,
                 "editorConfig": {
-                    "callbackUrl": "<?php echo $cbUrl; ?>",
-                    "lang": "zh-CN",
+                    "callbackUrl": <?php var_export($option['callbackUrl']); ?>,
+                    "lang": <?php var_export($option['lang']); ?>,
+                    "mode": <?php var_export($option['mode']); ?>,
                     "customization": {
                         "chat": false,
                         "commentAuthorOnly": false,
