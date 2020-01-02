@@ -11,14 +11,15 @@ class OnlyOfficePlugin extends PluginBase {
     }
     public function echoJs() {
         $this->echoFile('static/main.js');
-    
+
     }
     public function index() {
         $path = $this->filePath($this->in['path']);
-		$fileUrl = $this->filePathLinkOut($this->in['path']);
+        $localFile = $this->pluginLocalFile($this->in['path']);
+        $fileUrl = $this->filePathLinkOut($this->in['path']);
         $fileName = $this->fileInfo['name'];
         $fileExt = get_path_ext($this->fileInfo['name']);
-        
+
         $config = $this->getConfig();
         if (substr(APP_HOST,0,8) == 'https://') {
             $dsServer = $config['apiServer-https'];
@@ -27,8 +28,8 @@ class OnlyOfficePlugin extends PluginBase {
             $dsServer = $config['apiServer-http'];
             $http_header = 'http://';
         }
-        
-        $option = array('apiServer' => $http_header.$dsServer, 'url' => $fileUrl,'callbackUrl' => "", 'key' => md5_file($path), 'time' => filemtime($path), 'fileType' => $this->fileTypeAlias($fileExt), 'title' => " ", 'documentType' => $this->getDocumentType($fileExt), 'mode' => 'view', 'lang' => I18n::getType(),'canDownload' => false, 'canEdit' => false, 'canPrint' => false,);
+
+        $option = array('apiServer' => $http_header.$dsServer, 'url' => $fileUrl,'callbackUrl' => "", 'key' => md5_file($localFile), 'time' => filemtime($localFile), 'fileType' => $this->fileTypeAlias($fileExt), 'title' => " ", 'documentType' => $this->getDocumentType($fileExt), 'mode' => 'view', 'lang' => I18n::getType(),'canDownload' => false, 'canEdit' => false, 'canPrint' => false,);
 
         //可读权限检测，可读则可下载及打印
         if (Action("explorer.auth")->fileCanRead($path)) {
@@ -40,8 +41,9 @@ class OnlyOfficePlugin extends PluginBase {
         if (Action("explorer.auth")->fileCanWrite($path)) {
             $option['mode'] = 'edit';
             $option['canEdit'] = true;
-            $option['key'] = md5($path.$option['time']);
-            $option['callbackUrl'] = $this->pluginHost.'php/save.php?path='.rawurlencode($path);
+            $option['key'] = md5($localFile.$option['time']);
+            $option['callbackUrl'] = $this->pluginApi.'save&cache='.rawurlencode($localFile).'&path='.$path;
+
         }
         if (strlen($dsServer) > 0) {
             include($this->pluginPath.'/php/office.php');
@@ -72,5 +74,23 @@ class OnlyOfficePlugin extends PluginBase {
             $ext = 'ppt';
         }
         return $ext;
+    }
+    public function save() {
+        if (($body_stream = file_get_contents("php://input")) === FALSE) {
+            echo "Bad Request";
+        }
+        $data = json_decode($body_stream, TRUE);
+        if ($data["status"] == 2) {
+            if (($new_office_content = file_get_contents($data["url"])) === FALSE) {
+                echo "Bad Response";
+            } else {
+                if(file_put_contents($_GET['cache'], $new_office_content, LOCK_EX)){
+                    $this->pluginCacheFileSet($_GET['path'], file_get_contents($_GET['cache']));
+                    del_file($_GET['cache']);
+                }
+
+            }
+        }
+        echo "{\"error\":0}";
     }
 }
