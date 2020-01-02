@@ -9,27 +9,37 @@ class PhotopeaPlugin extends PluginBase {
             'user.commonJs.insert' => 'PhotopeaPlugin.echoJs'
         ));
     }
-    public function echoJs(){
+    public function echoJs() {
         $this->echoFile('static/main.js');
     }
     public function index() {
-		$path = $this->filePath($this->in['path']);
-		$localFile = $this->pluginLocalFile($path);
-		$fileUrl = $this->filePathLink($this->in['path']).'&name=/'.$this->in['name'];
-		$fileUrl2 = $this->filePathLinkOut($this->in['path']);
+        $path = $this->filePath($this->in['path']);
+        $localFile = $this->pluginLocalFile($path);
         $fileName = $this->fileInfo['name'];
         $fileExt = get_path_ext($this->fileInfo['name']);
-        
 
-//        $fileUrl = $this->pluginHost.'php/handler.php?act=sent&path='.$path;
-        $saveUrl = $this->pluginHost.'php/handler.php?act=save&path='.rawurlencode($localFile);
+        $fileUrl = $this->filePathLinkOut($this->in['path']).'&name=/'.$fileName;
+        $saveUrl = $this->pluginApi.'saveImg&cache='.rawurlencode($localFile).'&path='.$path;
         $fullUri = '{"files":["'.$fileUrl.'"],"resources":[],"server":{"version":1,"url":"'.$saveUrl.'","formats":["'.$fileExt.'"]},"environment":{},"script":""}';
 
-		$config = $this->getConfig();
+        $config = $this->getConfig();
+        //        show_tips($this->in['file']);
+        header('Location:'.$this->pluginHost.'static/photopea/#'.($fullUri));
 
-        //show_tips($fileUrl2);
-        header('Location:'.$this->pluginHost.'/static/photopea/#'.($fullUri));
-        //$this->pluginCacheFileSet($path, file_get_contents($localFile));
-        del_file($localFile);
+    }
+    public function saveImg() {
+        header('Content-type: application/json; charset="utf-8"');
+
+        $fi = fopen("php://input", "rb");
+        $p = JSON_decode(fread($fi, 2000));
+        $fo = fopen($_GET['cache'],"wb");
+        while ($buf = fread($fi,50000)) {
+            fwrite($fo,$buf);
+        }
+        fclose($fi);
+        fclose($fo);
+        $this->pluginCacheFileSet($_GET['path'], file_get_contents($_GET['cache']));
+        del_file($_GET['cache']);
+        echo '{"message": "Saved!"}';
     }
 }
