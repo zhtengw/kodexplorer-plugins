@@ -36,7 +36,7 @@ class OnlyOfficePlugin extends PluginBase {
             $http_header = 'http://';
         }
         
-        $option = array('apiServer' => $http_header.$dsServer, 'url' => $fileUrl,'callbackUrl' => "", 'key' => md5_file($path), 'time' => filemtime($path), 'fileType' => $this->fileTypeAlias($fileExt), 'title' => " ", 'documentType' => $this->getDocumentType($fileExt), 'mode' => 'view', 'lang' => I18n::getType(),'canDownload' => true, 'canEdit' => false, 'canPrint' => true,);
+        $option = array('apiServer' => $http_header.$dsServer, 'url' => $fileUrl,'callbackUrl' => "", 'key' => md5_file($path), 'time' => filemtime($path), 'fileType' => $this->fileTypeAlias($fileExt), 'title' => $fileName, 'compact' => false, 'documentType' => $this->getDocumentType($fileExt), 'user' => $_SESSION['kodUser']['name'], 'UID' => $_SESSION['kodUser']['userID'], 'mode' => 'view','type' => 'desktop', 'lang' => I18n::getType(),'canDownload' => true, 'canEdit' => false, 'canPrint' => true,);
         if (!$GLOBALS['isRoot']) {
             /** * 下载&打印&导出:权限取决于文件是否可以下载;(管理员无视所有权限拦截) * 1. 当前用户是否允许下载 * 2. 所在群组文件，用户在群组内的权限是否可下载 * 3. 文件分享,限制了下载 */
             if ($GLOBALS['auth'] && !$GLOBALS['auth']['explorer.fileDownload']) {
@@ -58,6 +58,15 @@ class OnlyOfficePlugin extends PluginBase {
             $option['canEdit'] = true;
             $option['key'] = md5($path.$option['time']);
             $option['callbackUrl'] = $this->pluginHost.'php/save.php?path='.rawurlencode($path);
+        }
+        //内部对话框打开时，使用紧凑显示
+        if ($config['openWith'] == 'dialog') {
+            $option['compact'] = true;
+            $option['title'] = " ";
+        }
+        //匹配移动端
+        if (is_wap()) {
+            $option['type'] = 'mobile';
         }
         if (strlen($dsServer) > 0) {
             include($this->pluginPath.'/php/office.php');
