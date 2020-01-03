@@ -2,7 +2,7 @@
 	"id":"OnlyOffice",
 	"name":"{{LNG.OnlyOffice.meta.name}}",
 	"title":"{{LNG.OnlyOffice.meta.title}}",
-	"version":"2.0",
+	"version":"2.1",
 	"category":"file",
 	"source":{
 		"icon":"{{pluginHost}}static/images/icon.png",
@@ -63,7 +63,7 @@
 		"apiServer-http":{
 		    "className":"form-box-title-right",
 			"type":"input",
-			"value":"47.107.226.98:666",
+			"value":"onlyoffice.dzz.cc",
 			"display":"http://",
 			"desc":"<span class='grey-8'>/web-apps/apps/api/documents/api.js</span>"
         },
