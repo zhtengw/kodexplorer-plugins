@@ -29,7 +29,7 @@ class OnlyOfficePlugin extends PluginBase {
             $http_header = 'http://';
         }
 
-        $option = array('apiServer' => $http_header.$dsServer, 'url' => $fileUrl,'callbackUrl' => "", 'key' => md5_file($localFile), 'time' => filemtime($localFile), 'fileType' => $this->fileTypeAlias($fileExt), 'title' => " ", 'documentType' => $this->getDocumentType($fileExt), 'mode' => 'view', 'lang' => I18n::getType(),'canDownload' => false, 'canEdit' => false, 'canPrint' => false,);
+        $option = array('apiServer' => $http_header.$dsServer, 'url' => $fileUrl,'callbackUrl' => "", 'key' => md5_file($localFile), 'time' => filemtime($localFile), 'fileType' => $this->fileTypeAlias($fileExt), 'title' => $fileName, 'compact' => false, 'documentType' => $this->getDocumentType($fileExt), 'user' => Session::get('kodUser.name'), 'UID' => Session::get('kodUser.userID'), 'mode' => 'view', 'type' => 'desktop', 'lang' => I18n::getType(),'canDownload' => false, 'canEdit' => false, 'canPrint' => false,);
 
         //可读权限检测，可读则可下载及打印
         if (Action("explorer.auth")->fileCanRead($path)) {
@@ -43,8 +43,17 @@ class OnlyOfficePlugin extends PluginBase {
             $option['canEdit'] = true;
             $option['key'] = md5($localFile.$option['time']);
             $option['callbackUrl'] = $this->pluginApi.'save&cache='.rawurlencode($localFile).'&path='.$path;
-
         }
+        //内部对话框打开时，使用紧凑显示
+        if ($config['openWith'] == 'dialog') {
+            $option['compact'] = true;
+            $option['title'] = " ";
+        }
+        //匹配移动端
+        if (is_wap()) {
+            $option['type'] = 'mobile';
+        }
+        
         if (strlen($dsServer) > 0) {
             include($this->pluginPath.'/php/office.php');
         } else {
