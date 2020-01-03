@@ -56,7 +56,7 @@
 		},
 		"apiServer-http":{
 			"type":"input",
-			"value":"47.107.226.98:666",
+			"value":"onlyoffice.dzz.cc",
 			"display":"http://",
 			"desc":"<span class='grey-8'>/web-apps/apps/api/documents/api.js</span>"
         },
