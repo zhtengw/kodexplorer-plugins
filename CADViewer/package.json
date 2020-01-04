@@ -2,7 +2,7 @@
 	"id":"CADViewer",
 	"name":"{{LNG.CADViewer.meta.name}}",
 	"title":"{{LNG.CADViewer.meta.title}}",
-	"version":"1.0",
+	"version":"1.1",
 	"category":"file",
 	"source":{
 		"icon":"{{pluginHost}}static/images/icon.png"
@@ -34,13 +34,13 @@
 			"type":"tags",
 			"display":"{{LNG.Plugin.Config.fileExt}}",
 			"desc":"{{LNG.Plugin.Config.fileExtDesc}}",
-			"value":"dwg,dxf,dwf,hpgl,plt,step,stp,iges,igs,brep,stl,sat,sldprt,x_t,x_b,svg,pdf,emf,cgm,wmf,bmp,jpg,jpeg,png,gif,tiff,cal,tga",
+			"value":"dwg,dxf,dwf,hpgl,plt,step,stp,iges,igs,brep,stl,sat,sldprt,x_t,x_b,svg,pdf,emf,cgm,wmf,bmp,jpg,jpeg,png,gif,tiff,cal,tga"
 		},
 		"fileSort":{
 			"type":"number",
 			"display":"{{LNG.Plugin.Config.fileSort}}",
 			"desc":"{{LNG.Plugin.Config.fileSortDesc}}",
-			"value":10,
-		},
+			"value":10
+		}
 	}
 }
