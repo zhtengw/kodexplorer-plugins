@@ -28,7 +28,7 @@ class CADViewerPlugin extends PluginBase {
 
         $api = "https://sharecad.org/cadframe/load?url=";
         $data = $api.urlencode($fileUrl);
-        //header('Location: '.$api.urlencode($fileUrl));
-        include(dirname(__FILE__).'/static/template.php');
+        header('Location: '.$api.urlencode($fileUrl));
+        //include($this->pluginHost.'static/template.php');
     }
 }
