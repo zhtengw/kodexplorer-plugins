@@ -14,17 +14,13 @@ class CADViewerPlugin extends PluginBase {
     
     }
     public function index() {
-		if(substr($this->in['path'],0,4) == 'http'){
-			$path = $fileUrl = $this->in['path'];
-		}else{
-			$path = _DIR($this->in['path']);
-			$fileUrl  = _make_file_proxy($path);
-			if (!file_exists($path)) {
-				show_tips(LNG('not_exists'));
-			}
-		}
+		$path = $this->filePath($this->in['path']);
+		$fileUrl = $this->filePathLinkOut($this->in['path']);
 
-		$api = "https://sharecad.org/cadframe/load?url=";
-		header('Location: '.$api.urlencode($fileUrl));
+        $api = "https://sharecad.org/cadframe/load?url=";
+        $data = $api.urlencode($fileUrl);
+        
+        header('Location: '.$api.urlencode($fileUrl));
+        //include($this->pluginHost.'static/template.php');
     }
 }
