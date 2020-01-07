@@ -8,9 +8,6 @@ docker pull onlyoffice/documentserver
 docker run --name onlyoffice --restart always -i -t -d -p 8000:80 onlyoffice/documentserver  
 ```
 
-### OnlyOfficeView
-此插件只用来预览office，不能编辑，同样要求自己部署OnlyOffice文档服务器。
-
 ### Photopea
 网页版PhotoShop，在线编辑图片，可查看编辑psd。
 
