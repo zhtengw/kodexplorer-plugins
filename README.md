@@ -8,6 +8,9 @@ docker pull onlyoffice/documentserver
 docker run --name onlyoffice --restart always -i -t -d -p 8000:80 onlyoffice/documentserver  
 ```
 
+### 毕升Office
+在线编辑office文档，服务端部署方式请参考[毕升官方文档](https://www.bishengoffice.com/apps/blog/posts/install.html)。
+
 ### Photopea
 网页版PhotoShop，在线编辑图片，可查看编辑psd。
 
