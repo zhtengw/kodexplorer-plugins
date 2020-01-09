@@ -1,5 +1,5 @@
-# KodExplorer Plugins
-## 支持KodExplorer版本 v5.0 | [v4.40插件](https://github.com/zhtengw/kodexplorer-plugins)
+# KodBox Plugins
+## 支持KodBox版本 v5.11 | [v4.40插件](https://github.com/zhtengw/kodexplorer-plugins)
 
 ### OnlyOffice
 在线编辑office文档，此插件要求自己部署OnlyOffice文档服务器，可以使用docker快速部署：
