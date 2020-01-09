@@ -2,7 +2,7 @@
 	"id":"bisheng",
 	"name":"{{LNG.bisheng.meta.name}}",
 	"title":"{{LNG.bisheng.meta.title}}",
-	"version":"1.0",
+	"version":"1.1",
 	"category":"file",
 	"source":{
 		"icon":"{{pluginHost}}static/images/icon.png",
@@ -23,7 +23,7 @@
 			"tabs":[
 				{
 					"name":"{{LNG.Plugin.tab.basic}}",
-					"field":["pluginAuth","openWith","sep001","apiServer"]
+					"field":["pluginAuth","openWith","sep001","apiServer","apiKey"]
 				}
 			]
 		},
@@ -57,12 +57,17 @@
 			"value":100
 		},
 		"apiServer":{
-		    "className":"form-box-title-right",
 			"type":"input",
 			"value":"https://home.aten.ml:4443",
 			"display":"{{LNG.bisheng.Config.apiServer}}",
 			"desc":"{{LNG.bisheng.Config.apiServerDesc}}",
 			"require":1
+        },
+		"apiKey":{
+			"type":"input",
+			"value":"",
+			"display":"{{LNG.bisheng.Config.apiKey}}",
+			"desc":"{{LNG.bisheng.Config.apiKeyDesc}}"
         }
 	}
 }
