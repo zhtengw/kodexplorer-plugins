@@ -52,9 +52,16 @@ class bishengPlugin extends PluginBase {
             $apiServer = $config['apiServer'].'/apps/editor/openEditor?data=';
         }
         
+        $apiKey = $config['apiKey'];
+        $data = base64_encode(json_encode($options));
         if (strlen($apiServer) > 0) {
             //print_r(json_encode($options));
-            header('Location:'.$apiServer.base64_encode(json_encode($options)));
+            if (strlen($apiKey) > 0) {
+                $sign = hash_hmac('md5',$data,$apiKey);
+                header('Location:'.$apiServer.$data.'&sign='.$sign);
+            } else {
+                header('Location:'.$apiServer.$data);
+            }
         } else {
             show_tips("bisheng Document Server is not available.");
         }
