@@ -21,7 +21,7 @@ class bishengPlugin extends PluginBase {
         $fileExt = get_path_ext($this->fileInfo['name']);
 
         $config = $this->getConfig();
-        $apiServer = $config['apiServer'].'/apps/editor/openPreview?data=';
+        $apiServer = $config['apiServer'].'/apps/editor/openPreview?callURL=';
         $options = array(
             'doc' => array(
                 'docId' => md5_file($localFile),
@@ -34,8 +34,8 @@ class bishengPlugin extends PluginBase {
                 'nickName' => Session::get('kodUser.nickName').' ('.Session::get('kodUser.name').')',
                 'avatar' => Session::get('kodUser.avatar'),
                 'privilege' => array('FILE_READ'),
-                )
-            );
+            )
+        );
         $timestamp = filemtime($localFile);
 
         //kodbox默认最低权限是canView可预览
@@ -49,18 +49,22 @@ class bishengPlugin extends PluginBase {
             array_push($options['user']['privilege'],'FILE_WRITE');
             $options['doc']['docId'] = md5($localFile.$timestamp);
             $options['doc']['callback'] = $this->pluginApi.'save&cache='.$localFile.'&path='.$path.'&api='.$config['apiServer'];
-            $apiServer = $config['apiServer'].'/apps/editor/openEditor?data=';
+            $apiServer = $config['apiServer'].'/apps/editor/openEditor?callURL=';
         }
-        
+
         $apiKey = $config['apiKey'];
         $data = base64_encode(json_encode($options));
+
+        $postUrl = $this->pluginApi.'filePost&data='.$data;
+        $callURL = base64_encode($postUrl);
         if (strlen($apiServer) > 0) {
             //print_r(json_encode($options));
             if (strlen($apiKey) > 0) {
-                $sign = hash_hmac('md5',$data,$apiKey);
-                header('Location:'.$apiServer.$data.'&sign='.$sign);
+                $sign = hash_hmac('md5',$callURL,$apiKey);
+                //show_tips($callURL.'<br/>'.$sign);
+                header('Location:'.$apiServer.$callURL.'&sign='.$sign);
             } else {
-                header('Location:'.$apiServer.$data);
+                header('Location:'.$apiServer.$callURL);
             }
         } else {
             show_tips("bisheng Document Server is not available.");
@@ -75,7 +79,7 @@ class bishengPlugin extends PluginBase {
             if (($new_office_content = file_get_contents($_GET['api'].$data['data']["docURL"])) === FALSE) {
                 echo "Bad Response";
             } else {
-                if(file_put_contents($_GET['cache'], $new_office_content, LOCK_EX)){
+                if (file_put_contents($_GET['cache'], $new_office_content, LOCK_EX)) {
                     $this->pluginCacheFileSet($_GET['path'], file_get_contents($_GET['cache']));
                     del_file($_GET['cache']);
                 }
@@ -83,5 +87,9 @@ class bishengPlugin extends PluginBase {
             }
         }
         echo "{\"error\":0}";
+    }
+    public function filePost() {
+        $data = base64_decode($_GET['data']);
+        echo $data;
     }
 }
