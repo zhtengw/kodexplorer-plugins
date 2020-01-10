@@ -28,19 +28,21 @@ class bishengPlugin extends PluginBase {
         $fileExt = get_path_ext($path);
         
         $config = $this->getConfig();
-        $apiServer = $config['apiServer'].'/apps/editor/openPreview?data=';
+        $apiServer = $config['apiServer'].'/apps/editor/openPreview?callURL=';
         $options = array(
             'doc' => array(
                 'docId' => md5_file($path),
                 'title' => $fileName,
                 //'mime_type' => mime_content_type($fileName),
                 'fetchUrl' => $fileUrl,
-                'callback' => '',),
+                'callback' => '',
+                ),
             'user' => array(
                 'uid' => $_SESSION['kodUser']['userID'],
                 'nickName' => $_SESSION['kodUser']['nickName'].' ('.$_SESSION['kodUser']['name'].')',
                 'avatar' => '',
                 'privilege' => array('FILE_READ','FILE_DOWNLOAD', 'FILE_PRINT',),
+                'opts' => array('pdf_viewer' => ($this->in['viewtype'] == 'pdf')),
                 )
             );
         $timestamp = filemtime($path);
@@ -57,21 +59,27 @@ class bishengPlugin extends PluginBase {
             }
         }
         //可写权限检测
+//        if (!$options['doc']['opts']['pdf_viewer'] && check_file_writable_user($path)) {
         if (check_file_writable_user($path)) {
             array_push($options['user']['privilege'],'FILE_WRITE');
             $options['doc']['docId'] = md5($path.$timestamp);
-            $options['doc']['callback'] = $this->pluginHost.'php/save.php?path='.$path.'&api='.$config['apiServer'];
-            $apiServer = $config['apiServer'].'/apps/editor/openEditor?data=';
+            $options['doc']['callback'] = $this->pluginHost.'php/handler.php?act=save&path='.$path.'&api='.$config['apiServer'];
+            $apiServer = $config['apiServer'].'/apps/editor/openEditor?callURL=';
         }
+        
         $apiKey = $config['apiKey'];
         $data = base64_encode(json_encode($options));
+        
+        $postUrl = $this->pluginHost.'php/handler.php?act=sent&data='.$data;
+        $callURL = base64_encode($postUrl);
         if (strlen($apiServer) > 0) {
             //print_r(json_encode($options));
             if (strlen($apiKey) > 0) {
-                $sign = hash_hmac('md5',$data,$apiKey);
-                header('Location:'.$apiServer.$data.'&sign='.$sign);
+                $sign = hash_hmac('md5',$callURL,$apiKey);
+                //show_tips($callURL.'<br/>'.$sign);
+                header('Location:'.$apiServer.$callURL.'&sign='.$sign);
             } else {
-                header('Location:'.$apiServer.$data);
+                header('Location:'.$apiServer.$callURL);
             }
         } else {
             show_tips("bisheng Document Server is not available.");
