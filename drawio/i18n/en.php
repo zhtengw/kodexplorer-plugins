@@ -3,6 +3,9 @@ return array(
 	"drawio.meta.name"				=> "draw.io",
 	"drawio.meta.title"				=> "draw.io Online Diagraming",
 	"drawio.meta.desc"				=> "Online tools for Diagraming",
+	"drawio.file.name"              => "draw.io Diagrams",
+	"drawio.share.title"            => "Share Diagrams",
+	"drawio.share.url"              => "URL for sharing",
 	"drawio.Config.Theme"           => "Theme",
 	"drawio.Config.serverAddr"		=> "draw.io address",
 	"drawio.Config.serverAddrDesc"	=> "

@@ -13,8 +13,6 @@ docker run --name onlyoffice --restart always -i -t -d -p 8000:80 onlyoffice/doc
 
 ### draw.io
 在线图表编辑工具
-#### Todo
-* 右键菜单新建图表
 
 ### Photopea
 网页版PhotoShop，在线编辑图片，可查看编辑psd。
