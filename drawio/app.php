@@ -15,42 +15,48 @@ class drawioPlugin extends PluginBase {
         }
     }
     public function index() {
-		if(substr($this->in['path'],0,4) == 'http'){
-			$path = $fileUrl = $this->in['path'];
-		}else{
-			$path = _DIR($this->in['path']);
-			$fileUrl  = _make_file_proxy($path);
-			if (!file_exists($path)) {
-				show_tips(LNG('not_exists'.$path));
-			}
+        if (substr($this->in['path'],0,4) == 'http') {
+            $path = $fileUrl = $this->in['path'];
+        } else {
+            $path = _DIR($this->in['path']);
+            $fileUrl = _make_file_proxy($path);
+            if (!file_exists($path)) {
+                show_tips(LNG('not_exists'.$path));
+            }
         }
         $fileName = get_path_this(rawurldecode($this->in['path']));
 
         $newfile = false;
 
-		$config = $this->getConfig();
+        $config = $this->getConfig();
         
-        $serverAddr = $config['serverAddr'];
-        
-        $theme = $config['theme'];
-        $lang = substr(I18n::getType(),0,2);
-        $url_params = '?embed=1&ui='.$theme.'&lang='.$lang.'&spin=1&proto=json';
-        
-        $content = file_get_contents($fileUrl);
-        
-        if (empty($serverAddr)) {
-            if (file_exists($this->pluginPath.'static/draw/index.html')){
-                $serverAddr = $this->pluginHost.'static/draw';
-            }else{
-                $serverAddr = 'https://www.draw.io';
+        if (!empty($this->in['share'])) {
+            // Share Diagram
+            include($this->pluginPath.'/static/share.php');
+        } else {
+            // open editor
+            $serverAddr = $config['serverAddr'];
+
+            $theme = $config['theme'];
+            $lang = substr(I18n::getType(),0,2);
+            $url_params = '?embed=1&ui='.$theme.'&lang='.$lang.'&spin=1&proto=json';
+
+            $content = file_get_contents($fileUrl);
+
+            if (empty($serverAddr)) {
+                if (file_exists($this->pluginPath.'static/draw/index.html')) {
+                    $serverAddr = $this->pluginHost.'static/draw';
+                } else {
+                    $serverAddr = 'https://www.draw.io';
+                }
             }
+            $serverAddr .= $url_params;
+
+            if (!empty($this->in['newfile']) || empty($content)) {
+                $newfile = true;
+            }
+            include($this->pluginPath.'/static/template.php');
         }
-        $serverAddr .= $url_params;
-        
-        if(!empty($this->in['newfile']) || empty($content)){
-            $newfile = true;
-        }
-        include($this->pluginPath.'/static/template.php');
-        
+
     }
 }
