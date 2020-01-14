@@ -21,7 +21,7 @@ class OnlyOfficePlugin extends PluginBase {
             $path = _DIR($this->in['path']);
             $fileUrl = _make_file_proxy($path);
             if (!file_exists($path)) {
-                show_tips(LNG('not_exists'));
+                show_tips(LNG('not_exists'.$path));
             }
         }
         $fileName = get_path_this($path);
