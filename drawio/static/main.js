@@ -52,8 +52,8 @@ kodReady.push(function() {
         }
     });
     
-    // 右键菜单：新建图表
-    $.contextMenu.menuAdd({
+    // 菜单：新建图表
+    var newDrawMenu = {
         'newDraw': {
             name: "{{LNG.drawio.file.name}}",
             className: "newDraw",
@@ -62,6 +62,9 @@ kodReady.push(function() {
                 ui.path.newFile('drawio');
             }
         }
-    },
-        '.menu-body-main', false, 'newfile-docx');
+    }
+    // 空白右键菜单
+    $.contextMenu.menuAdd(newDrawMenu, '.menu-body-main', false, 'newfile-docx');
+    // 工具栏“新建更多”菜单
+    $.contextMenu.menuAdd(newDrawMenu, ".tool-path-newfile", false, "newfile-docx");
 });
