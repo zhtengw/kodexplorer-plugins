@@ -3,6 +3,8 @@ return array(
 	"drawio.meta.name"				=> "draw.io",
 	"drawio.meta.title"				=> "draw.io在线图表",
 	"drawio.meta.desc"				=> "在线图表编辑",
+	"drawio.share.title"            => "分享图表",
+	"drawio.share.url"              => "分享链接",
 	"drawio.Config.Theme"           => "界面主题",
 	"drawio.Config.serverAddr"		=> "draw.io地址",
 	"drawio.Config.serverAddrDesc"	=> "
