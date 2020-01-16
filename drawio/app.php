@@ -37,9 +37,6 @@ class drawioPlugin extends PluginBase {
 
             $content = file_get_contents($fileUrl);
 
-            // 去除文件中的空格
-            $content_rep = str_replace(" ", '', $content);
-
             if (empty($serverAddr)) {
                 if (file_exists($this->pluginPath.'static/draw/index.html')) {
                     $serverAddr = $this->pluginHost.'static/draw';
@@ -49,7 +46,7 @@ class drawioPlugin extends PluginBase {
             }
             $serverAddr .= $url_params;
 
-            if (!empty($this->in['newfile']) || empty($content_rep) ) {
+            if (!empty($this->in['newfile']) || empty($content) ) {
                 $newfile = true;
             }
             include($this->pluginPath.'/static/template.php');
