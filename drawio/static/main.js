@@ -12,27 +12,46 @@ kodReady.push(function() {
         });
     });
 
+    function inArray(arr, val) {
+        return arr.some(function(v) {
+            return val === v;
+        })
+    }
     // 右键菜单: 分享图表
     Events.bind(
         'rightMenu.beforeShow@.menu-path-file', function(menu, menuType) {
-        if (menu.extendShareDraw) return;
+        var name = kodApp.pathAction.makeParamItem().name;
+        var ext = pathTools.pathExt(name);
+        var allowExt = inArray("{{config.fileExt}}".split(","), ext);
+
+        if (menu.extendShareDraw) {
+            if (!allowExt) {
+                $.contextMenu.menuItemHide(menu, 'shareDraw');
+            } else {
+                $.contextMenu.menuItemShow(menu, 'shareDraw');
+            }
+            return;
+        } else {
+            if (!allowExt) return;
+        }
         $.contextMenu.menuAdd({
             'shareDraw': {
                 name: "{{LNG['drawio.share.title']}}",
                 className: "shareDraw",
                 icon: "{{pluginHost}}static/images/icon.png",
                 callback: function(action, option) {
-                    
-                //alert(JSON.stringify(core.openFile));
-
-                    //var path = core.makeParamItem;
-                    //var args = new Array(path,'xml','this');
-                    //alert(args);
-                        //core.openFile('{{pluginApi}}', "dialog",  args, 'share=1');
+                    var param = kodApp.pathAction.makeParamItem();
+                    var path = param.path;
+                    name = param.name;
+                    ext = pathTools.pathExt(name);
+                    var args = new Array(path, ext, name);
+                    core.openFile('{{pluginApi}}', "dialog", args, 'share=1');
                 }
             }
         },
             menu, false, '.share');
+
+
         menu.extendShareDraw = true;
     });
 
@@ -43,12 +62,11 @@ kodReady.push(function() {
             className: "newDraw",
             icon: "{{pluginHost}}static/images/icon.png",
             callback: function() {
-                //alert(JSON.stringify(core));
-                //core.newFile('txt');
+                kodApp.pathAction.newFile('drawio');
             }
         }
     }
-    // 空白右键菜单
+    // 文件夹空白右键菜单
     Events.bind(
         'rightMenu.beforeShow@.menu-path-body', function(menu, menuType) {
         if (menu.extendNewDraw) return;
@@ -58,6 +76,13 @@ kodReady.push(function() {
     // 桌面右键菜单
     Events.bind(
         'rightMenu.beforeShow@.menu-desktop', function(menu, menuType) {
+        if (menu.extendNewDraw) return;
+        $.contextMenu.menuAdd(newDrawMenu, menu, false, '.new-file-docx');
+        menu.extendNewDraw = true;
+    });
+    // 本地路径目录空白右键菜单
+    Events.bind(
+        'rightMenu.beforeShow@.menu-path-guest-body', function(menu, menuType) {
         if (menu.extendNewDraw) return;
         $.contextMenu.menuAdd(newDrawMenu, menu, false, '.new-file-docx');
         menu.extendNewDraw = true;
