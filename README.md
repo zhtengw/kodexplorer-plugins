@@ -1,5 +1,5 @@
 # KodBox Plugins
-## 支持KodBox版本 v5.11/v1.02 | [v4.40插件](https://github.com/zhtengw/kodexplorer-plugins)
+## 支持KodBox版本 v1.04 | [v4.40插件](https://github.com/zhtengw/kodexplorer-plugins)
 
 ### OnlyOffice
 在线编辑office文档，此插件要求自己部署OnlyOffice文档服务器，可以使用docker快速部署：
@@ -13,8 +13,6 @@ docker run --name onlyoffice --restart always -i -t -d -p 8000:80 onlyoffice/doc
 
 ### draw.io
 在线图表编辑工具
-#### Todo:
-* 右键菜单新建图表
 
 ### Photopea
 网页版PhotoShop，在线编辑图片，可查看编辑psd。
