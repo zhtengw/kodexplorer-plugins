@@ -28,7 +28,9 @@ class bishengPlugin extends PluginBase {
                 'title' => $fileName,
                 //'mime_type' => mime_content_type($fileName),
                 'fetchUrl' => $fileUrl,
-                'callback' => '',),
+                'callback' => '',
+                'opts' => array('pdf_viewer' => ($this->in['viewtype'] == 'pdf')),
+                ),
             'user' => array(
                 'uid' => Session::get('kodUser.userID'),
                 'nickName' => Session::get('kodUser.nickName').' ('.Session::get('kodUser.name').')',
@@ -49,7 +51,7 @@ class bishengPlugin extends PluginBase {
             array_push($options['user']['privilege'],'FILE_WRITE');
             $options['doc']['docId'] = md5($localFile.$timestamp);
             $options['doc']['callback'] = $this->pluginApi.'save&cache='.$localFile.'&path='.$path.'&api='.$config['apiServer'];
-            $apiServer = $config['apiServer'].'/apps/editor/openEditor?callURL=';
+            if(!$options['doc']['opts']['pdf_viewer'])$apiServer = $config['apiServer'].'/apps/editor/openEditor?callURL=';
         }
 
         $apiKey = $config['apiKey'];
@@ -58,7 +60,7 @@ class bishengPlugin extends PluginBase {
         $postUrl = $this->pluginApi.'filePost&data='.$data;
         $callURL = base64_encode($postUrl);
         if (strlen($apiServer) > 0) {
-            //print_r(json_encode($options));
+            //show_tips(json_encode($options));
             if (strlen($apiKey) > 0) {
                 $sign = hash_hmac('md5',$callURL,$apiKey);
                 //show_tips($callURL.'<br/>'.$sign);
