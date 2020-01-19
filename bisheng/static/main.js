@@ -16,7 +16,7 @@ kodReady.push(function() {
     });
     $.contextMenu.menuAdd({
         'viewAsPDF': {
-            name: "转成PDF查看",
+            name: "使用毕升预览",
             className: "viewAsPDF",
             icon: "{{pluginHost}}static/images/icon.png",
             callback: function(action, option) {
@@ -45,11 +45,11 @@ kodReady.push(function() {
         var allowExt = "{{config.fileExt}}";
         var hideClass = "hidden";
 
-        //if (inArray(allowExt.split(","), ext)) {
-        //    $theMenu.find(".viewAsPDF").removeClass(hideClass);
-        //} else {
+        if (inArray(allowExt.split(","), ext)) {
+            $theMenu.find(".viewAsPDF").removeClass(hideClass);
+        } else {
             $theMenu.find(".viewAsPDF").addClass(hideClass);
-        //}
+        }
     });
 
 });
