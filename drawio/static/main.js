@@ -17,6 +17,21 @@ kodReady.push(function() {
             return val === v;
         })
     }
+    var shareDrawMenu = {
+            'shareDraw': {
+                name: "{{LNG['drawio.share.title']}}",
+                className: "shareDraw",
+                icon: "{{pluginHost}}static/images/icon.png",
+                callback: function(action, option) {
+                    var param = kodApp.pathAction.makeParamItem();
+                    var path = param.path;
+                    var name = param.name;
+                    var ext = pathTools.pathExt(name);
+                    var args = new Array(path, ext, name);
+                    core.openFile('{{pluginApi}}', "dialog", args, 'share=1');
+                }
+            }
+        }
     // 右键菜单: 分享图表
     Events.bind(
         'rightMenu.beforeShow@.menu-path-file', function(menu, menuType) {
@@ -34,24 +49,26 @@ kodReady.push(function() {
         } else {
             if (!allowExt) return;
         }
-        $.contextMenu.menuAdd({
-            'shareDraw': {
-                name: "{{LNG['drawio.share.title']}}",
-                className: "shareDraw",
-                icon: "{{pluginHost}}static/images/icon.png",
-                callback: function(action, option) {
-                    var param = kodApp.pathAction.makeParamItem();
-                    var path = param.path;
-                    name = param.name;
-                    ext = pathTools.pathExt(name);
-                    var args = new Array(path, ext, name);
-                    core.openFile('{{pluginApi}}', "dialog", args, 'share=1');
-                }
+        $.contextMenu.menuAdd(shareDrawMenu,menu, false, '.share');
+        menu.extendShareDraw = true;
+    });
+    Events.bind(
+        'rightMenu.beforeShow@.menu-path-guest-file', function(menu, menuType) {
+        var name = kodApp.pathAction.makeParamItem().name;
+        var ext = pathTools.pathExt(name);
+        var allowExt = inArray("{{config.fileExt}}".split(","), ext);
+
+        if (menu.extendShareDraw) {
+            if (!allowExt) {
+                $.contextMenu.menuItemHide(menu, 'shareDraw');
+            } else {
+                $.contextMenu.menuItemShow(menu, 'shareDraw');
             }
-        },
-            menu, false, '.share');
-
-
+            return;
+        } else {
+            if (!allowExt) return;
+        }
+        $.contextMenu.menuAdd(shareDrawMenu,menu, '.open-with', false);
         menu.extendShareDraw = true;
     });
 
