@@ -71,6 +71,25 @@ kodReady.push(function() {
         $.contextMenu.menuAdd(shareDrawMenu,menu, '.open-with', false);
         menu.extendShareDraw = true;
     });
+    Events.bind(
+        'rightMenu.beforeShow@.menu-simple-file', function(menu, menuType) {
+        var name = kodApp.pathAction.makeParamItem().name;
+        var ext = pathTools.pathExt(name);
+        var allowExt = inArray("{{config.fileExt}}".split(","), ext);
+
+        if (menu.extendShareDraw) {
+            if (!allowExt) {
+                $.contextMenu.menuItemHide(menu, 'shareDraw');
+            } else {
+                $.contextMenu.menuItemShow(menu, 'shareDraw');
+            }
+            return;
+        } else {
+            if (!allowExt) return;
+        }
+        $.contextMenu.menuAdd(shareDrawMenu,menu, false, '.share');
+        menu.extendShareDraw = true;
+    });
 
     // 菜单：新建图表
     var newDrawMenu = {
