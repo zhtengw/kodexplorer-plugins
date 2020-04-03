@@ -3,6 +3,7 @@ return array(
 	"bisheng.meta.name"				=> "毕升Office",
 	"bisheng.meta.title"			=> "毕升Office在线编辑器",
 	"bisheng.meta.desc"				=> "在线查看和编辑Office文档",
+	"bisheng.viewAsPDF"             => "转成PDF预览",
 	"bisheng.Config.apiServer"		=> "服务器接口",
 	"bisheng.Config.apiServerDesc"	=> "
 	    <div class='can-select pt-10'>

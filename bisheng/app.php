@@ -36,7 +36,7 @@ class bishengPlugin extends PluginBase {
                 //'mime_type' => mime_content_type($fileName),
                 'fetchUrl' => $fileUrl,
                 'callback' => '',
-                'opts' => array('pdf_viewer' => ($this->in['viewtype'] == 'pdf')),
+                'pdf_viewer' => ($this->in['viewtype'] == 'pdf'),
                 ),
             'user' => array(
                 'uid' => $_SESSION['kodUser']['userID'],
@@ -64,7 +64,7 @@ class bishengPlugin extends PluginBase {
             array_push($options['user']['privilege'],'FILE_WRITE');
             $options['doc']['docId'] = md5($path.$timestamp);
             $options['doc']['callback'] = $this->pluginHost.'php/handler.php?act=save&path='.$path.'&api='.$config['apiServer'];
-            if(!$options['doc']['opts']['pdf_viewer']) $apiServer = $config['apiServer'].'/apps/editor/openEditor?callURL=';
+            if(!$options['doc']['pdf_viewer']) $apiServer = $config['apiServer'].'/apps/editor/openEditor?callURL=';
         }
         
         $apiKey = $config['apiKey'];
