@@ -3,6 +3,7 @@ return array(
 	"bisheng.meta.name"				=> "Bisheng Office",
 	"bisheng.meta.title"			=> "Bisheng Office",
 	"bisheng.meta.desc"				=> "View and Edit office documents online",
+	"bisheng.viewAsPDF"             => "View as PDF",
     "bisheng.Config.apiServer"		=> "Server API Interface",
 	"bisheng.Config.apiServerDesc"	=> "
 	    <div class='can-select pt-10'>
