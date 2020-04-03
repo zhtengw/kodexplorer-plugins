@@ -16,7 +16,7 @@ kodReady.push(function() {
     });
     $.contextMenu.menuAdd({
         'viewAsPDF': {
-            name: "使用毕升预览",
+            name: "{{LNG.bisheng.viewAsPDF}}",
             className: "viewAsPDF",
             icon: "{{pluginHost}}static/images/icon.png",
             callback: function(action, option) {
@@ -42,7 +42,7 @@ kodReady.push(function() {
     function($menuAt, $theMenu) {
         var param = $(".context-menu-active").hasClass("menu-tree-file") ? ui.tree.makeParam() : ui.path.makeParam();
         var ext = core.pathExt(param.path);
-        var allowExt = "{{config.fileExt}}";
+        var allowExt = "doc,docm,docx,dot,dotm,dotx,fodt,odt,fodp,odp,pot,potm,potx,pps,ppsm,ppsx,ppt,pptm,pptx,fods,ods,xls,xlsm,xlsx,xlt,xltm,xltx";
         var hideClass = "hidden";
 
         if (inArray(allowExt.split(","), ext)) {
