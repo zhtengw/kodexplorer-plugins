@@ -19,7 +19,8 @@ class bishengPlugin extends PluginBase {
         $fileUrl = $this->filePathLinkOut($this->in['path']);
         $fileName = $this->fileInfo['name'];
         $fileExt = get_path_ext($this->fileInfo['name']);
-
+        
+        //show_tips($path);
         $config = $this->getConfig();
         $apiServer = $config['apiServer'].'/apps/editor/openPreview?callURL=';
         $options = array(
@@ -29,7 +30,8 @@ class bishengPlugin extends PluginBase {
                 //'mime_type' => mime_content_type($fileName),
                 'fetchUrl' => $fileUrl,
                 'callback' => '',
-                'opts' => array('pdf_viewer' => ($this->in['viewtype'] == 'pdf')),
+                //'opts' => array('pdf_viewer' => ($this->in['viewtype'] == 'pdf')),
+                'pdf_viewer' => ($this->in['viewtype'] == 'pdf'),
                 ),
             'user' => array(
                 'uid' => Session::get('kodUser.userID'),
@@ -51,7 +53,8 @@ class bishengPlugin extends PluginBase {
             array_push($options['user']['privilege'],'FILE_WRITE');
             $options['doc']['docId'] = md5($localFile.$timestamp);
             $options['doc']['callback'] = $this->pluginApi.'save&cache='.$localFile.'&path='.$path.'&api='.$config['apiServer'];
-            if(!$options['doc']['opts']['pdf_viewer'])$apiServer = $config['apiServer'].'/apps/editor/openEditor?callURL=';
+            //if(!$options['doc']['opts']['pdf_viewer'])
+            if(!$options['doc']['pdf_viewer']) $apiServer = $config['apiServer'].'/apps/editor/openEditor?callURL=';
         }
 
         $apiKey = $config['apiKey'];

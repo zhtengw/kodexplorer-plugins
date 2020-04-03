@@ -19,7 +19,7 @@ kodReady.push(function() {
     }
     var viewByBisheng = {
             'viewAsPDF': {
-                name: "使用毕升预览",
+                name: "{{LNG['bisheng.viewAsPDF']}}",
                 className: "viewAsPDF",
                 icon: "{{pluginHost}}static/images/icon.png",
                 callback: function(action, option) {
@@ -33,11 +33,12 @@ kodReady.push(function() {
             }
         }
     // 右键菜单: 使用毕升预览
+    var toPDFExt = "doc,docm,docx,dot,dotm,dotx,fodt,odt,fodp,odp,pot,potm,potx,pps,ppsm,ppsx,ppt,pptm,pptx,fods,ods,xls,xlsm,xlsx,xlt,xltm,xltx";
     Events.bind(
         'rightMenu.beforeShow@.menu-path-file', function(menu, menuType) {
         var name = kodApp.pathAction.makeParamItem().name;
         var ext = pathTools.pathExt(name);
-        var allowExt = inArray("{{config.fileExt}}".split(","), ext);
+        var allowExt = inArray(toPDFExt.split(","), ext);
 
         if (menu.extendViewAsPDF) {
             if (!allowExt) {
@@ -59,7 +60,7 @@ kodReady.push(function() {
         'rightMenu.beforeShow@.menu-path-guest-file', function(menu, menuType) {
         var name = kodApp.pathAction.makeParamItem().name;
         var ext = pathTools.pathExt(name);
-        var allowExt = inArray("{{config.fileExt}}".split(","), ext);
+        var allowExt = inArray(toPDFExt.split(","), ext);
 
         if (menu.extendViewAsPDF) {
             if (!allowExt) {
@@ -78,7 +79,7 @@ kodReady.push(function() {
         'rightMenu.beforeShow@.menu-simple-file', function(menu, menuType) {
         var name = kodApp.pathAction.makeParamItem().name;
         var ext = pathTools.pathExt(name);
-        var allowExt = inArray("{{config.fileExt}}".split(","), ext);
+        var allowExt = inArray(toPDFExt.split(","), ext);
 
         if (menu.extendViewAsPDF) {
             if (!allowExt) {
@@ -97,7 +98,7 @@ kodReady.push(function() {
         'rightMenu.beforeShow@.menu-tree-file', function(menu, menuType) {
         var name = kodApp.pathAction.makeParamItem().name;
         var ext = pathTools.pathExt(name);
-        var allowExt = inArray("{{config.fileExt}}".split(","), ext);
+        var allowExt = inArray(toPDFExt.split(","), ext);
 
         if (menu.extendViewAsPDF) {
             if (!allowExt) {

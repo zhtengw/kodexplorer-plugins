@@ -2,7 +2,7 @@
 	"id":"bisheng",
 	"name":"{{LNG['bisheng.meta.name']}}",
 	"title":"{{LNG['bisheng.meta.title']}}",
-	"version":"1.2",
+	"version":"1.2.1",
 	"category":"file",
 	"source":{
 		"icon":"{{pluginHost}}static/images/icon.png",
@@ -45,7 +45,7 @@
 			"type":"tags",
 			"display":"{{LNG['admin.plugin.fileExt']}}",
 			"desc":"{{LNG['admin.plugin.fileExtDesc']}}",
-			"value":"doc,docm,docx,dot,dotm,dotx,epub,fodt,htm,html,mht,odt,pdf,rtf,txt,djvu,xps,fodp,odp,pot,potm,potx,pps,ppsm,ppsx,ppt,pptm,pptx,csv,fods,ods,xls,xlsm,xlsx,xlt,xltm,xltx"
+			"value":"doc,docm,docx,dot,dotm,dotx,fodt,htm,html,mht,odt,pdf,rtf,txt,xps,fodp,odp,pot,potm,potx,pps,ppsm,ppsx,ppt,pptm,pptx,fods,ods,xls,xlsm,xlsx,xlt,xltm,xltx"
 		},
 		"fileSort":{
 			"type":"number",
