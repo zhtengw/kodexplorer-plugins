@@ -1,12 +1,12 @@
 <?php
 
-class pdftronPlugin extends PluginBase {
+class PDFTronPlugin extends PluginBase {
     function __construct() {
         parent::__construct();
     }
     public function regiest() {
         $this->hookRegiest(array(
-            'user.commonJs.insert' => 'pdftronPlugin.echoJs'
+            'user.commonJs.insert' => 'PDFTronPlugin.echoJs'
         ));
     }
     public function echoJs($st,$act) {
