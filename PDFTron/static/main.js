@@ -1,8 +1,8 @@
 kodReady.push(function() {
     Events.bind('explorer.kodApp.before', function(appList) {
         appList.push({
-            name: "pdftron",
-            title: "{{LNG['pdftron.meta.name']}}",
+            name: "PDFTron",
+            title: "{{LNG['PDFTron.meta.name']}}",
             icon: '{{pluginHost}}static/images/icon.png',
             ext: "{{config.fileExt}}",
             sort: "{{config.fileSort}}",
