@@ -52,7 +52,7 @@ class bishengPlugin extends PluginBase {
         if (Action("explorer.auth")->fileCanWrite($path)) {
             array_push($options['user']['privilege'],'FILE_WRITE');
             $options['doc']['docId'] = md5($localFile.$timestamp);
-            $options['doc']['callback'] = $this->pluginApi.'save&cache='.$localFile.'&path='.$path.'&api='.$config['apiServer'];
+            $options['doc']['callback'] = $this->pluginApi.'save&path='.$path.'&api='.$config['apiServer'];
             //if(!$options['doc']['opts']['pdf_viewer'])
             if(!$options['doc']['pdf_viewer']) $apiServer = $config['apiServer'].'/apps/editor/openEditor?callURL=';
         }
@@ -84,11 +84,7 @@ class bishengPlugin extends PluginBase {
             if (($new_office_content = file_get_contents($_GET['api'].$data['data']["docURL"])) === FALSE) {
                 echo "Bad Response";
             } else {
-                if (file_put_contents($_GET['cache'], $new_office_content, LOCK_EX)) {
-                    $this->pluginCacheFileSet($_GET['path'], file_get_contents($_GET['cache']));
-                    del_file($_GET['cache']);
-                }
-
+                $this->pluginCacheFileSet($_GET['path'], $new_office_content);
             }
         }
         echo "{\"error\":0}";

@@ -42,7 +42,7 @@ class OnlyOfficePlugin extends PluginBase {
             $option['mode'] = 'edit';
             $option['canEdit'] = true;
             $option['key'] = md5($localFile.$option['time']);
-            $option['callbackUrl'] = $this->pluginApi.'save&cache='.rawurlencode($localFile).'&path='.$path;
+            $option['callbackUrl'] = $this->pluginApi.'save&path='.$path;
         }
         //内部对话框打开时，使用紧凑显示
         if ($config['openWith'] == 'dialog') {
@@ -93,11 +93,7 @@ class OnlyOfficePlugin extends PluginBase {
             if (($new_office_content = file_get_contents($data["url"])) === FALSE) {
                 echo "Bad Response";
             } else {
-                if(file_put_contents($_GET['cache'], $new_office_content, LOCK_EX)){
-                    $this->pluginCacheFileSet($_GET['path'], file_get_contents($_GET['cache']));
-                    del_file($_GET['cache']);
-                }
-
+                    $this->pluginCacheFileSet($_GET['path'], $new_office_content);
             }
         }
         echo "{\"error\":0}";
