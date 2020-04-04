@@ -2,7 +2,7 @@
 	"id":"Photopea",
 	"name":"{{LNG.Photopea.meta.name}}",
 	"title":"{{LNG.Photopea.meta.title}}",
-	"version":"1.0",
+	"version":"1.0.1",
 	"category":"file",
 	"source":{
 		"icon":"{{pluginHost}}static/images/icon.png",
