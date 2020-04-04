@@ -1,7 +1,7 @@
 {
-	"id":"pdftron",
-	"name":"{{LNG.pdftron.meta.name}}",
-	"title":"{{LNG.pdftron.meta.title}}",
+	"id":"PDFTron",
+	"name":"{{LNG.PDFTron.meta.name}}",
+	"title":"{{LNG.PDFTron.meta.title}}",
 	"version":"1.0",
 	"category":"file",
 	"source":{
@@ -10,7 +10,7 @@
 			"{{pluginHost}}static/images/screenshot.png"
 		]
 	},
-	"description":"{{LNG.pdftron.meta.desc}}",
+	"description":"{{LNG.PDFTron.meta.desc}}",
 	"auther":{
 		"copyright":"zhtengw",
 		"homePage":"https://github.com/zhtengw/kodexplorer-plugins"
@@ -45,7 +45,7 @@
 		"darktheme":{
 			"type":"switch",
 			"value":0,
-			"display":"{{LNG.pdftron.Config.darkTheme}}"
+			"display":"{{LNG.PDFTron.Config.darkTheme}}"
         },
 		"fileExt":{
 			"type":"tags",
