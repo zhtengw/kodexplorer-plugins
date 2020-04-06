@@ -42,7 +42,7 @@ class OnlyOfficePlugin extends PluginBase {
             $option['mode'] = 'edit';
             $option['canEdit'] = true;
             $option['key'] = md5($localFile.$option['time']);
-            $option['callbackUrl'] = $this->pluginApi.'save&path='.$path;
+            $option['callbackUrl'] = $this->pluginApi.'save&path='.rawurlencode($path);
         }
         //内部对话框打开时，使用紧凑显示
         if ($config['openWith'] == 'dialog') {

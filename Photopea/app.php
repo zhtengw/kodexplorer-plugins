@@ -19,7 +19,7 @@ class PhotopeaPlugin extends PluginBase {
         $fileExt = get_path_ext($this->fileInfo['name']);
 
         $fileUrl = $this->filePathLinkOut($this->in['path']).'&name=/'.$fileName;
-        $saveUrl = $this->pluginApi.'saveImg&cache='.rawurlencode($localFile).'&path='.$path;
+        $saveUrl = $this->pluginApi.'saveImg&cache='.rawurlencode($localFile).'&path='.rawurlencode($path);
         $fullUri = '{"files":["'.$fileUrl.'"],"resources":[],"server":{"version":1,"url":"'.$saveUrl.'","formats":["'.$fileExt.'"]},"environment":{},"script":""}';
 
         $config = $this->getConfig();
