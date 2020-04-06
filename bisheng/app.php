@@ -24,7 +24,7 @@ class bishengPlugin extends PluginBase {
                 show_tips(LNG('not_exists'));
             }
         }
-        $fileName = get_path_this($path);
+        $fileName = get_path_this(rawurldecode($this->in['path']));
         $fileExt = get_path_ext($path);
         
         $config = $this->getConfig();
@@ -63,7 +63,7 @@ class bishengPlugin extends PluginBase {
         if (check_file_writable_user($path)) {
             array_push($options['user']['privilege'],'FILE_WRITE');
             $options['doc']['docId'] = md5($path.$timestamp);
-            $options['doc']['callback'] = $this->pluginHost.'php/handler.php?act=save&path='.$path.'&api='.$config['apiServer'];
+            $options['doc']['callback'] = $this->pluginHost.'php/handler.php?act=save&path='.rawurlencode($path).'&api='.$config['apiServer'];
             if(!$options['doc']['pdf_viewer']) $apiServer = $config['apiServer'].'/apps/editor/openEditor?callURL=';
         }
         
