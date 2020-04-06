@@ -24,7 +24,7 @@ class OnlyOfficePlugin extends PluginBase {
                 show_tips(LNG('not_exists'.$path));
             }
         }
-        $fileName = get_path_this($path);
+	$fileName = get_path_this(rawurldecode($this->in['path']));
         $fileExt = get_path_ext($path);
         
         $config = $this->getConfig();
