@@ -52,7 +52,7 @@ class bishengPlugin extends PluginBase {
         if (Action("explorer.auth")->fileCanWrite($path)) {
             array_push($options['user']['privilege'],'FILE_WRITE');
             $options['doc']['docId'] = md5($localFile.$timestamp);
-            $options['doc']['callback'] = $this->pluginApi.'save&path='.$path.'&api='.$config['apiServer'];
+            $options['doc']['callback'] = $this->pluginApi.'save&path='.rawurlencode($path).'&api='.$config['apiServer'];
             //if(!$options['doc']['opts']['pdf_viewer'])
             if(!$options['doc']['pdf_viewer']) $apiServer = $config['apiServer'].'/apps/editor/openEditor?callURL=';
         }
