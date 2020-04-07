@@ -2,7 +2,7 @@
 	"id":"PDFTron",
 	"name":"{{LNG['PDFTron.meta.name']}}",
 	"title":"{{LNG['PDFTron.meta.title']}}",
-	"version":"1.0",
+	"version":"1.1",
 	"category":"file",
 	"source":{
 		"icon":"{{pluginHost}}static/images/icon.png",		
@@ -19,7 +19,7 @@
 	    "formStyle":{
 		    "className":"form-box-title-right",
 			"tabs":{
-				"{{LNG['admin.setting.base']}}":"pluginAuth,sep001,openWith,darktheme,fileExt,fileSort"
+				"{{LNG['admin.setting.base']}}":"pluginAuth,sep001,openWith,darktheme,fileExt,fileSort,licenseKey"
 			}
 		},
 		"pluginAuth":{
@@ -55,6 +55,12 @@
 			"display":"{{LNG['admin.plugin.fileSort']}}",
 			"desc":"{{LNG['admin.plugin.fileSortDesc']}}",
 			"value":1000
-		}
+		},
+        "licenseKey":{
+			"type":"input",
+			"value":"",
+			"display":"{{LNG['PDFTron.Config.licenseKey']}}",
+			"desc":"{{LNG['PDFTron.Config.licenseKeyDesc']}}"
+        }
 	}
 }

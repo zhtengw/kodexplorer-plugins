@@ -22,7 +22,24 @@ class PDFTronPlugin extends PluginBase {
 
         $config = $this->getConfig();
 
+        //界面语言
         $lang = strtolower(str_replace('-','_',substr(I18n::getType(),0)));
+        
+        $user = Session::get('kodUser.name');
+        //kodbox默认最低权限是canView可预览，所以文档默认权限是ViewOnly
+        $isViewOnly = true;
+        $canWrite = false;
+        //可读权限检测，可读则可下载及打印
+        if (Action("explorer.auth")->fileCanRead($path)) {
+            $isViewOnly = false;
+        }
+
+        //可写权限检测
+        if (Action("explorer.auth")->fileCanWrite($path)) {
+            $isViewOnly = false;
+            $canWrite = true;
+        }
+        
         include($this->pluginPath.'/static/template.php');
         
     }
