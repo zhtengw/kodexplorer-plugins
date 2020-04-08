@@ -36,7 +36,7 @@
     const { docViewer, annotManager, Annotations } = instance;
     // call methods from instance, docViewer and annotManager as needed
 
-    if (<?php var_export($canWrite); ?>){
+    if (<?php var_export($canWrite); ?> && <?php var_export($config['savetofile']); ?> == 1){
         // If writable, Add header button that will save changed on click
         instance.setHeaderItems(header => {
             header.push({
@@ -57,9 +57,19 @@
                     var req = new XMLHttpRequest();
                     req.open("POST", "<?php echo $this->pluginApi;?>save&path=<?php echo rawurlencode($path)?>");
                     req.onload = function (oEvent) {
-                        // Uploaded.
+                        // Uploaded.    
+                        //如果请求成功
+                        if((req.status >= 200 && req.status < 300) || req.status == 304){
+                            //do successCallback
+                            //Tips.tips("?php echo LNG('explorer.saveSuccess'); ?>");
+                            alert("<?php echo LNG('explorer.saveSuccess'); ?>");
+                        }
                     };
-                    req.send(blob);
+                    try{
+                        req.send(blob);
+                    }catch(e) {
+                        alert("<?php echo LNG('explorer.error'); ?>");
+                    };
                 }
             });
         });

@@ -19,7 +19,6 @@ class PDFTronPlugin extends PluginBase {
         //$localFile = $this->pluginLocalFile($this->in['path']);
 
         $fileName = $this->fileInfo['name'];
-
         $config = $this->getConfig();
 
         //界面语言
