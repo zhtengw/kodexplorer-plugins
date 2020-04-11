@@ -1,4 +1,5 @@
 # 可道云插件 -- KodBox Plugins
+[插件包下载地址](https://github.com/zhtengw/kodexplorer-plugins/releases/tag/v2020.04.06)
 ## 支持KodBox版本 v1.07 | [v4.40插件](https://github.com/zhtengw/kodexplorer-plugins)
 
 ### [OnlyOffice](https://github.com/zhtengw/kodexplorer-plugins/tree/v5.0/OnlyOffice)
