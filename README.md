@@ -18,7 +18,7 @@ docker run --name onlyoffice --restart always -i -t -d -p 8000:80 onlyoffice/doc
 ### draw.io [![](https://img.shields.io/badge/code-for_kodexplorer-green.svg)](https://github.com/zhtengw/kodexplorer-plugins/tree/master/kodexplorer-plugins/drawio) [![](https://img.shields.io/badge/code-for_kodbox-blue.svg)](https://github.com/zhtengw/kodexplorer-plugins/tree/master/kodbox-plugins/drawio)
 在线图表编辑工具
 
-### Photopea [![](https://img.shields.io/badge/code-for_kodexplorer-green.svg)](https://github.com/zhtengw/kodexplorer-plugins/tree/master/kodexplorer-plugins/photopea) [![](https://img.shields.io/badge/code-for_kodbox-blue.svg)](https://github.com/zhtengw/kodexplorer-plugins/tree/master/kodbox-plugins/photopea)
+### Photopea [![](https://img.shields.io/badge/code-for_kodexplorer-green.svg)](https://github.com/zhtengw/kodexplorer-plugins/tree/master/kodexplorer-plugins/Photopea) [![](https://img.shields.io/badge/code-for_kodbox-blue.svg)](https://github.com/zhtengw/kodexplorer-plugins/tree/master/kodbox-plugins/Photopea)
 网页版PhotoShop，在线编辑图片，可查看编辑psd。
 
 ### CADViewer [![](https://img.shields.io/badge/code-for_kodexplorer-green.svg)](https://github.com/zhtengw/kodexplorer-plugins/tree/master/kodexplorer-plugins/CADViewer) [![](https://img.shields.io/badge/code-for_kodbox-blue.svg)](https://github.com/zhtengw/kodexplorer-plugins/tree/master/kodbox-plugins/CADViewer)
