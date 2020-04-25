@@ -25,6 +25,7 @@ class PhotopeaPlugin extends PluginBase {
         $config = $this->getConfig();
         //        show_tips($this->in['file']);
         header('Location:'.$this->pluginHost.'static/photopea/#'.($fullUri));
+        //header('Location:https://www.photopea.com/#'.($fullUri));
 
     }
     public function saveImg() {

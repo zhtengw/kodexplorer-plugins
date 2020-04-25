@@ -1,0 +1,102 @@
+
+<!DOCTYPE html> 
+
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0" />
+		
+		<style>
+			body {  background-color:#474747;  }
+			label { color:white;  font-family:sans-serif; }
+			img { margin-right:4px;  cursor:pointer;  }
+			#cont {
+				margin-top:4px;
+				overflow-y: scroll;
+				/* for Firefox: */
+				scrollbar-color: #222222 rgba(0,0,0, 0.2 );
+				scrollbar-width: thin;
+			}
+			#cont::-webkit-scrollbar {
+			  width: 10px;
+			  background: rgba(0,0,0,0.2); 
+			}
+			#cont::-webkit-scrollbar-thumb {
+				background: #222222; 
+				margin:2px;
+			}
+		</style>
+		<script>
+			var imgs = [], hits = [];
+		
+			function update() {
+				var ikey = document.getElementById("keyws").value;
+				if(document.getElementById("isolated").checked) ikey += " isolated";
+				ikey = ikey.trim();
+				console.log(JSON.stringify(ikey));
+				//alert(keyws);
+				
+				var request = new XMLHttpRequest();
+				var url = "https://pixabay.com/api/?image_type=photo"+(ikey==""?"":"&q="+encodeURIComponent(ikey))+"&per_page=200&page=1&key=10554583-a5eacb61c2e61105fdfb6eb88"; 
+				if(ikey=="") {
+					if(Math.random()<0.005) url="gallery.php?url="+encodeURIComponent(url+"&safesearch=true");
+					else url="gallery.json";
+				}
+				//console.log(url);
+				request.open("GET", url, true);
+				request.onload = imgsLoaded.bind(this);
+				request.onerror = function(e) {  console.log(e.target.response);  }
+				request.send();
+			}
+			function imgsLoaded(e) {
+				//console.log(e.target.response);
+				var iw = window.innerWidth-28, th=100;
+				var cont = document.getElementById("cont");
+				cont.setAttribute("style","height:"+(window.innerHeight-42)+"px;");
+				while(cont.firstChild) cont.removeChild(cont.firstChild);
+				cont.scrollTop = 0;
+				hits = JSON.parse(e.target.response)["hits"];  imgs=[];
+				var heis = [];
+				for(var i=0; i<hits.length; ) {
+					var totw = 0, j=i;
+					while(j<hits.length) {
+						var hit = hits[j];
+						var w=hit["previewWidth"], h=hit["previewHeight"];
+						if(j<=i+1 || totw+w*(th/h)+4 < iw) {  totw+=w*(th/h) + 4;  j++;  }
+						else break;
+					}
+					while(i<j) {
+						heis.push(th*(iw/totw));  i++;
+					}
+				}
+				
+				for(var i=0; i<hits.length; i++) {
+					var hit = hits[i];
+					var img = document.createElement("img");
+					img.setAttribute("src",hit["previewURL"]);
+					img.setAttribute("height",heis[i]+"px");
+					img.addEventListener("click", imgClick);
+					cont.appendChild(img);
+					imgs.push(img);
+				}
+				console.log(hits);
+			}
+			function imgClick(e) {
+				var ind = imgs.indexOf(e.currentTarget);
+				var hit = hits[ind];  console.log(hit);
+				var x = "app.open(\""+hit["largeImageURL"]+"\",null,true);";
+				window.parent.postMessage(x, "*");
+			}
+			function msg(e) {  alert("These images come from www.PixaBay.com and are free to use for any purpose.");  }
+		</script>
+	</head>
+	
+	<body onload="update()">	
+		<button onclick="msg()">?</button>
+		<label>Keywords:</label> <input type="text" id="keyws" onchange="update()"></input>
+		<input type="checkbox" id="isolated" style="vertical-align:middle;" onchange="update()" /> <label for="isolated">Isolated</label>
+		
+		
+		<div id="cont"></div>
+	</body>
+</html>

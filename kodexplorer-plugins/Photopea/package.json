@@ -2,7 +2,7 @@
 	"id":"Photopea",
 	"name":"{{LNG.Photopea.meta.name}}",
 	"title":"{{LNG.Photopea.meta.title}}",
-	"version":"1.0.2",
+	"version":"1.0.3",
 	"category":"file",
 	"source":{
 		"icon":"{{pluginHost}}static/images/icon.png",
@@ -39,13 +39,13 @@
 			"type":"tags",
 			"display":"{{LNG.Plugin.Config.fileExt}}",
 			"desc":"{{LNG.Plugin.Config.fileExtDesc}}",
-			"value":"psd,psb,pbm,ai,xd,sketch,xcf,raw,bmp,jpg,jpeg,png,gif,tiff,iff,mpo,svg,pdf,emf,webp,ppm,ico,dds,tga",
+			"value":"psd,psb,pbm,ai,xd,sketch,xcf,raw,bmp,jpg,jpeg,png,gif,tiff,iff,mpo,svg,pdf,emf,webp,ppm,ico,dds,tga"
 		},
 		"fileSort":{
 			"type":"number",
 			"display":"{{LNG.Plugin.Config.fileSort}}",
 			"desc":"{{LNG.Plugin.Config.fileSortDesc}}",
-			"value":10,
-		},
+			"value":10
+		}
 	}
 }

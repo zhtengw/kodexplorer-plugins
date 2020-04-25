@@ -20,10 +20,10 @@ class PhotopeaPlugin extends PluginBase {
         } else {
             $path = _DIR($this->in['path']);
             if (!file_exists($path)) {
-                show_tips(LNG('not_exists'));
+                show_tips(LNG('not_exists'.$path));
             }
         }
-	$fileName = get_path_this(rawurldecode($this->in['path']));
+	    $fileName = get_path_this(rawurldecode($this->in['path']));
         $fileExt = get_path_ext($path);
         $fileUrl = $this->pluginHost.'php/handler.php?act=sent&path='.rawurlencode($path);
         $saveUrl = $this->pluginHost.'php/handler.php?act=save&path='.rawurlencode($path);
@@ -31,7 +31,8 @@ class PhotopeaPlugin extends PluginBase {
 
 		$config = $this->getConfig();
 
-        //header('Location:https://www.photopea.com/#'.urlencode($fullUri));
+        //header('Location:https://www.photopea.com/#'.($fullUri));
+
         //国内访问速度问题，故本地化
         header('Location:'.$this->pluginHost.'/static/photopea/#'.($fullUri));
     }
