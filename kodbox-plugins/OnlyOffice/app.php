@@ -29,8 +29,34 @@ class OnlyOfficePlugin extends PluginBase {
             $http_header = 'http://';
         }
 
-        $option = array('apiServer' => $http_header.$dsServer, 'url' => $fileUrl,'callbackUrl' => "", 'key' => md5_file($localFile), 'time' => filemtime($localFile), 'fileType' => $this->fileTypeAlias($fileExt), 'title' => $fileName, 'compact' => false, 'documentType' => $this->getDocumentType($fileExt), 'user' => Session::get('kodUser.nickName').' ('.Session::get('kodUser.name').')', 'UID' => Session::get('kodUser.userID'), 'mode' => 'view', 'type' => 'desktop', 'lang' => I18n::getType(),'canDownload' => false, 'canEdit' => false, 'canPrint' => false,);
+        $option = array(
+            'apiServer' => $http_header.$dsServer, 
+            'url' => $fileUrl,
+            'callbackUrl' => "", 
+            'key' => md5_file($localFile), 
+            'time' => filemtime($localFile), 
+            'fileType' => $this->fileTypeAlias($fileExt), 
+            'title' => $fileName, 
+            'compact' => false, 
+            'documentType' => $this->getDocumentType($fileExt), 
+            'user' => Session::get('kodUser.nickName').' ('.Session::get('kodUser.name').')', 
+            'UID' => Session::get('kodUser.userID'), 
+            'mode' => 'view', 
+            'type' => 'desktop', 
+            'lang' => I18n::getType(),
+            'canDownload' => false, 
+            'canEdit' => false, 
+            'canPrint' => false,
+            );
 
+        // 设定未登录用户的文档信息
+        if (Session::get('kodUser') == null) {
+            $option['UID'] = 'guest';
+            $option['user'] = 'guest';
+            $option['canDownload'] = false;
+            $option['canPrint'] = false;
+        }
+        
         //可读权限检测，可读则可下载及打印
         if (Action("explorer.auth")->fileCanRead($path)) {
             $option['canDownload'] = true;
