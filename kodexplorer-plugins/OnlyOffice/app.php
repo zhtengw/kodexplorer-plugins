@@ -36,7 +36,34 @@ class OnlyOfficePlugin extends PluginBase {
             $http_header = 'http://';
         }
         
-        $option = array('apiServer' => $http_header.$dsServer, 'url' => $fileUrl,'callbackUrl' => "", 'key' => md5_file($path), 'time' => filemtime($path), 'fileType' => $this->fileTypeAlias($fileExt), 'title' => $fileName, 'compact' => false, 'documentType' => $this->getDocumentType($fileExt), 'user' => $_SESSION['kodUser']['nickName'].' ('.$_SESSION['kodUser']['name'].')', 'UID' => $_SESSION['kodUser']['userID'], 'mode' => 'view','type' => 'desktop', 'lang' => I18n::getType(),'canDownload' => true, 'canEdit' => false, 'canPrint' => true,);
+        $option = array(
+            'apiServer' => $http_header.$dsServer, 
+            'url' => $fileUrl,
+            'callbackUrl' => "", 
+            'key' => md5_file($path), 
+            'time' => filemtime($path), 
+            'fileType' => $this->fileTypeAlias($fileExt), 
+            'title' => $fileName, 
+            'compact' => false, 
+            'documentType' => $this->getDocumentType($fileExt), 
+            'user' => $_SESSION['kodUser']['nickName'].' ('.$_SESSION['kodUser']['name'].')', 
+            'UID' => $_SESSION['kodUser']['userID'], 
+            'mode' => 'view',
+            'type' => 'desktop', 
+            'lang' => I18n::getType(),
+            'canDownload' => true, 
+            'canEdit' => false, 
+            'canPrint' => true,
+            );
+            
+        // 设定未登录用户的文档信息
+        if (!isset($_SESSION['kodUser'])) {
+            $option['UID'] = 'guest';
+            $option['user'] = 'guest';
+            $option['canDownload'] = false;
+            $option['canPrint'] = false;
+        }
+        
         if (!$GLOBALS['isRoot']) {
             /** * 下载&打印&导出:权限取决于文件是否可以下载;(管理员无视所有权限拦截) * 1. 当前用户是否允许下载 * 2. 所在群组文件，用户在群组内的权限是否可下载 * 3. 文件分享,限制了下载 */
             if ($GLOBALS['auth'] && !$GLOBALS['auth']['explorer.fileDownload']) {

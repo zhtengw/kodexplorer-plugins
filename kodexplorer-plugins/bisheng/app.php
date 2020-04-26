@@ -29,6 +29,7 @@ class bishengPlugin extends PluginBase {
         
         $config = $this->getConfig();
         $apiServer = $config['apiServer'].'/apps/editor/openPreview?callURL=';
+        //show_tips(json_encode($_SESSION));
         $options = array(
             'doc' => array(
                 'docId' => md5_file($path),
@@ -45,6 +46,14 @@ class bishengPlugin extends PluginBase {
                 'privilege' => array('FILE_READ','FILE_DOWNLOAD', 'FILE_PRINT',),
                 )
             );
+        
+        // 设定未登录用户的文档信息
+        if (!isset($_SESSION['kodUser'])) {
+            $options['user']['uid'] = 'guest';
+            $options['user']['nickName'] = 'guest';
+            $options['user']['privilege'] = array('FILE_READ',);
+        }
+        
         $timestamp = filemtime($path);
         if (!$GLOBALS['isRoot']) {
             /** * 下载&打印&导出:权限取决于文件是否可以下载;(管理员无视所有权限拦截) * 1. 当前用户是否允许下载 * 2. 所在群组文件，用户在群组内的权限是否可下载 * 3. 文件分享,限制了下载 */
@@ -69,7 +78,7 @@ class bishengPlugin extends PluginBase {
         
         $apiKey = $config['apiKey'];
         $data = base64_encode(json_encode($options));
-        
+        //show_tips($data);
         $postUrl = $this->pluginHost.'php/handler.php?act=sent&data='.$data;
         $callURL = base64_encode($postUrl);
         if (strlen($apiServer) > 0) {

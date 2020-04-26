@@ -20,7 +20,7 @@ class bishengPlugin extends PluginBase {
         $fileName = $this->fileInfo['name'];
         $fileExt = get_path_ext($this->fileInfo['name']);
         
-        //show_tips($path);
+        //show_tips(json_encode(Session::get('kodUser')));
         $config = $this->getConfig();
         $apiServer = $config['apiServer'].'/apps/editor/openPreview?callURL=';
         $options = array(
@@ -41,7 +41,14 @@ class bishengPlugin extends PluginBase {
             )
         );
         $timestamp = filemtime($localFile);
-
+        
+        // 设定未登录用户的文档信息
+        if (Session::get('kodUser') == null) {
+            $options['user']['uid'] = 'guest';
+            $options['user']['nickName'] = 'guest';
+            $options['user']['privilege'] = array('FILE_READ',);
+        }
+        
         //kodbox默认最低权限是canView可预览
         //可读权限检测，可读则可下载及打印
         if (Action("explorer.auth")->fileCanRead($path)) {

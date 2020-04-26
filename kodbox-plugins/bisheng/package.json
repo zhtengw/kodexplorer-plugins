@@ -2,7 +2,7 @@
 	"id":"bisheng",
 	"name":"{{LNG['bisheng.meta.name']}}",
 	"title":"{{LNG['bisheng.meta.title']}}",
-	"version":"1.2.2",
+	"version":"1.3",
 	"category":"file",
 	"source":{
 		"icon":"{{pluginHost}}static/images/icon.png",
@@ -55,7 +55,7 @@
 		},
 		"apiServer":{
 			"type":"input",
-			"value":"https://home.aten.ml:4443",
+			"value":"https://home.aten.pw:4443",
 			"display":"{{LNG['bisheng.Config.apiServer']}}",
 			"desc":"{{LNG['bisheng.Config.apiServerDesc']}}",
 			"require":1
