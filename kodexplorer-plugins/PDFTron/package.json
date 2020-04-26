@@ -2,7 +2,7 @@
 	"id":"PDFTron",
 	"name":"{{LNG.PDFTron.meta.name}}",
 	"title":"{{LNG.PDFTron.meta.title}}",
-	"version":"1.2",
+	"version":"1.3",
 	"category":"file",
 	"source":{
 		"icon":"{{pluginHost}}static/images/icon.png",
