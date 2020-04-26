@@ -24,7 +24,13 @@ class PDFTronPlugin extends PluginBase {
         //界面语言
         $lang = strtolower(str_replace('-','_',substr(I18n::getType(),0)));
         
-        $user = Session::get('kodUser.name');
+        // 设定未登录用户的文档信息
+        if (Session::get('kodUser') == null) {
+            $user = 'guest';
+        } else {
+            $user = Session::get('kodUser.name');
+        }
+        
         //kodbox默认最低权限是canView可预览，所以文档默认权限是ViewOnly
         $isViewOnly = true;
         $canWrite = false;

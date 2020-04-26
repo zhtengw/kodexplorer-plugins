@@ -30,11 +30,18 @@ class PDFTronPlugin extends PluginBase {
         $lang = strtolower(str_replace('-','_',substr(I18n::getType(),0)));
         $config = $this->getConfig();
         
-        $user = $_SESSION['kodUser']['name'];
+        // 设定未登录用户的文档信息
+        if (!isset($_SESSION['kodUser'])) {
+            $user = 'guest';
+            $isViewOnly = true;
+            $canWrite = false;
+        } else {
+            $user = $_SESSION['kodUser']['name'];
+            //KodExplorer默认权限是canRead
+            $isViewOnly = false;
+            $canWrite = false;
+        }
         
-        //KodExplorer默认权限是canRead
-        $isViewOnly = false;
-        $canWrite = false;
         if (!$GLOBALS['isRoot']) {
             /** * 下载&打印&导出:权限取决于文件是否可以下载;(管理员无视所有权限拦截) * 1. 当前用户是否允许下载 * 2. 所在群组文件，用户在群组内的权限是否可下载 * 3. 文件分享,限制了下载 */
             if ($GLOBALS['auth'] && !$GLOBALS['auth']['explorer.fileDownload']) {
