@@ -26,7 +26,13 @@ class PhotopeaPlugin extends PluginBase {
 	    $fileName = get_path_this(rawurldecode($this->in['path']));
         $fileExt = get_path_ext($path);
         $fileUrl = $this->pluginHost.'php/handler.php?act=sent&path='.rawurlencode($path);
-        $saveUrl = $this->pluginHost.'php/handler.php?act=save&path='.rawurlencode($path);
+        
+        //可写权限检测
+        $saveUrl = $this->pluginHost.'php/handler.php?act=unwritable';
+        if (check_file_writable_user($path)) {
+            $saveUrl = $this->pluginHost.'php/handler.php?act=save&path='.rawurlencode($path);
+        }
+        
         $fullUri = '{"files":["'.$fileUrl.'"],"resources":[],"server":{"version":1,"url":"'.$saveUrl.'","formats":["'.$fileExt.'"]},"environment":{},"script":""}';
 
 		$config = $this->getConfig();

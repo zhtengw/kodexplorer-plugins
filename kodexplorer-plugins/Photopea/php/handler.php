@@ -11,6 +11,9 @@ if ($action == 'save') {
 if ($action == 'sent') {
     fileStream();
 }
+if ($action == 'unwritable'){
+    echo '{"message": "Unwritable!"}';
+}
 
 function saveImg() {
     header('Content-type: application/json; charset="utf-8"');
