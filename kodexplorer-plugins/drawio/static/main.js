@@ -14,43 +14,6 @@ kodReady.push(function() {
             }
         }
     });
-    // 右键菜单：分享图表
-    $.contextMenu.menuAdd({
-        'shareDraw': {
-            name: "{{LNG.drawio.share.title}}",
-            className: "shareDraw",
-            icon: "{{pluginHost}}static/images/icon.png",
-            callback: function(action, option) {
-                var path;
-                if (action.path !== undefined) {
-                    path = action.path;
-                } else {
-                    path = ui.path.makeParam().path;
-                }
-                if ( !! path) {
-                    var param = $(".context-menu-active").hasClass("menu-tree-file") ? ui.tree.makeParam() : ui.path.makeParam();
-                    var ext = core.pathExt(param.path);
-                    var url = '{{pluginApi}}&share=1&path=' + core.pathCommon(path);
-                    core.openDialog(url, core.icon(ext), "{{LNG.drawio.share.title}}");
-                }
-            }
-        }
-    },
-        '.menu-file', false, '.share');
-    // 对于非draw.io支持的文件格式，隐藏分享图表菜单
-    Hook.bind("rightMenu.show.menu-file,rightMenu.show.menu-tree-file",
-    function($menuAt, $theMenu) {
-        var param = $(".context-menu-active").hasClass("menu-tree-file") ? ui.tree.makeParam() : ui.path.makeParam();
-        var ext = core.pathExt(param.path);
-        var allowExt = "{{config.fileExt}}";
-        var hideClass = "hidden";
-
-        if (inArray(allowExt.split(","), ext)) {
-            $theMenu.find(".shareDraw").removeClass(hideClass);
-        } else {
-            $theMenu.find(".shareDraw").addClass(hideClass);
-        }
-    });
     
     // 菜单：新建图表
     var newDrawMenu = {

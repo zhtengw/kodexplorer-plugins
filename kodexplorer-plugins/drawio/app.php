@@ -29,34 +29,42 @@ class drawioPlugin extends PluginBase {
         $newfile = false;
 
         $config = $this->getConfig();
-        
-        if (!empty($this->in['share'])) {
-            // Share Diagram
-            include($this->pluginPath.'/static/share.php');
-        } else {
-            // open editor
-            $serverAddr = $config['serverAddr'];
 
-            $theme = $config['theme'];
-            $lang = substr(I18n::getType(),0,2);
-            $url_params = '?embed=1&ui='.$theme.'&lang='.$lang.'&spin=1&proto=json';
+        // 解析出文件里的diagram内容
+        $content = file_get_contents($fileUrl);
+        $xml = simplexml_load_string($content);
+        $diagram = json_decode(json_encode($xml),true)['diagram'];
+        if (empty($diagram)) {
+            $newfile = true;
+        }
 
-            $content = file_get_contents($fileUrl);
-
-            if (empty($serverAddr)) {
-                if (file_exists($this->pluginPath.'static/draw/index.html')) {
-                    $serverAddr = $this->pluginHost.'static/draw';
-                } else {
-                    $serverAddr = 'https://www.draw.io';
-                }
+        // 获取服务器地址
+        $serverAddr = $config['serverAddr'];
+        if (empty($serverAddr)) {
+            if (file_exists($this->pluginPath.'static/draw/index.html')) {
+                $serverAddr = $this->pluginHost.'static/draw';
+            } else {
+                $serverAddr = 'https://www.draw.io';
             }
+        }
+
+        $theme = $config['theme'];
+        $lang = substr(I18n::getType(),0,2);
+
+        //可写权限检测
+        if (check_file_writable_user($path)) {
+            // 有写入权限的登录用户，显示嵌入编辑界面
+            $url_params = '?embed=1&ui='.$theme.'&lang='.$lang.'&spin=1&proto=json'.'&editable=false';
             $serverAddr .= $url_params;
-
-            if (!empty($this->in['newfile']) || empty($content)) {
-                $newfile = true;
-            }
             include($this->pluginPath.'/static/template.php');
+        } else {
+            // 无写入权限或者未登录用户，显示分享预览界面
+            $url_params = '?ui='.$theme.'&lang='.$lang.'&lightbox=1&highlight=0000ff&layers=1&nav=1#R';
+            $serverAddr .= $url_params;
+            header('Location:'.$serverAddr.($diagram));
         }
 
     }
+
+
 }

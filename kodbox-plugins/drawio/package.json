@@ -2,7 +2,7 @@
 	"id":"drawio",
 	"name":"{{LNG['drawio.meta.name']}}",
 	"title":"{{LNG['drawio.meta.title']}}",
-	"version":"1.1.1",
+	"version":"2.0",
 	"category":"file",
 	"source":{
 		"icon":"{{pluginHost}}static/images/icon.png",		
