@@ -83,7 +83,9 @@ class OnlyOfficePlugin extends PluginBase {
         if (strlen($dsServer) > 0) {
             include($this->pluginPath.'/php/office.php');
         } else {
-            show_tips("OnlyOffice Document Server is not available.");
+            $error_msg = "OnlyOffice Document Server is not available.<br/>".
+                "The API of \"".$http_header."\" must be filled.";
+            show_tips($error_msg);
         }
     }
     private function getDocumentType($ext) {
