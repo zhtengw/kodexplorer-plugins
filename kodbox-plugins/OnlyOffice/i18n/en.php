@@ -6,8 +6,6 @@ return array(
     "OnlyOffice.Config.apiServer"		=> "Server API Interface",
 	"OnlyOffice.Config.apiServerDesc"	=> "
 	    <div class='can-select pt-10'>
-	    The address of the OnlyOffice API must be the same as the KodExplorer used;<br/>
-	    If your KodExplorer address starts with HTTP, the 'http' box of OnlyOffice <br/>
-	    should be filled, and vice versa.<br/>
-	    If the port used is other than 80 or 443, you should specify the port either."
+	    The address of the OnlyOffice API must be the same protocol as the address where KodBox is deployed. If KodBox is an http site, the \"http address\" of the OnlyOffice API cannot be empty. The https is the same.<br/>
+	    In addition, if the port onlyoffice used is not 80 or 443, you need to specify the port number."
 );
