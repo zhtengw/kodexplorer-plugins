@@ -33,9 +33,11 @@ class PhotopeaPlugin extends PluginBase {
             $saveUrl = $this->pluginHost.'php/handler.php?act=save&path='.rawurlencode($path);
         }
         
-        $fullUri = '{"files":["'.$fileUrl.'"],"resources":[],"server":{"version":1,"url":"'.$saveUrl.'","formats":["'.$fileExt.'"]},"environment":{},"script":""}';
-
 		$config = $this->getConfig();
+        
+        $theme = $config['theme'];
+        $lang = I18n::getType();
+        $fullUri = '{"files":["'.$fileUrl.'"],"resources":[],"server":{"version":1,"url":"'.$saveUrl.'","formats":["'.$fileExt.'"]},"environment":{"theme":'.$theme.',"lang":"'.$lang.'"},"script":""}';
 
         //header('Location:https://www.photopea.com/#'.($fullUri));
 

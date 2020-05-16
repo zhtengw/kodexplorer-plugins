@@ -2,7 +2,7 @@
 	"id":"Photopea",
 	"name":"{{LNG.Photopea.meta.name}}",
 	"title":"{{LNG.Photopea.meta.title}}",
-	"version":"1.1",
+	"version":"1.2",
 	"category":"file",
 	"source":{
 		"icon":"{{pluginHost}}static/images/icon.png",
@@ -26,6 +26,18 @@
 			"require":1
 		},
 		"sep001":"<hr/>",
+		"theme":{
+			"type":"select",
+			"value":1,
+			"display":"{{LNG.Photopea.Config.Theme}}",
+			"info":[
+				[0,"Silver"],
+				[1,"Black"],
+				[2,"Iron Blue"],
+				[3,"Snow White"],
+				[4,"Danish Purple"]
+			]
+        },
 		"openWith":{
 			"type":"radio",
 			"value":"dialog",
