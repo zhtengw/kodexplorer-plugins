@@ -15,7 +15,6 @@ class bishengPlugin extends PluginBase {
     }
     public function index() {
         $path = $this->filePath($this->in['path']);
-        $localFile = $this->pluginLocalFile($this->in['path']);
         $fileUrl = $this->filePathLinkOut($this->in['path']);
         $fileName = $this->fileInfo['name'];
         $fileExt = get_path_ext($this->fileInfo['name']);
@@ -25,7 +24,7 @@ class bishengPlugin extends PluginBase {
         $apiServer = $config['apiServer'].'/apps/editor/openPreview?callURL=';
         $options = array(
             'doc' => array(
-                'docId' => md5_file($localFile),
+                'docId' => md5($fileUrl),
                 'title' => $fileName,
                 //'mime_type' => mime_content_type($fileName),
                 'fetchUrl' => $fileUrl,
@@ -40,7 +39,6 @@ class bishengPlugin extends PluginBase {
                 'privilege' => array('FILE_READ'),
             )
         );
-        $timestamp = filemtime($localFile);
         
         // 设定未登录用户的文档信息
         if (Session::get('kodUser') == null) {
@@ -57,6 +55,8 @@ class bishengPlugin extends PluginBase {
 
         //可写权限检测
         if (Action("explorer.auth")->fileCanWrite($path)) {
+            $localFile = $this->pluginLocalFile($this->in['path']);
+            $timestamp = filemtime($localFile);
             array_push($options['user']['privilege'],'FILE_WRITE');
             $options['doc']['docId'] = md5($localFile.$timestamp);
             $options['doc']['callback'] = $this->pluginApi.'save&path='.rawurlencode($path).'&api='.$config['apiServer'];

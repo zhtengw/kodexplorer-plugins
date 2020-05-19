@@ -15,7 +15,6 @@ class OnlyOfficePlugin extends PluginBase {
     }
     public function index() {
         $path = $this->filePath($this->in['path']);
-        $localFile = $this->pluginLocalFile($this->in['path']);
         $fileUrl = $this->filePathLinkOut($this->in['path']);
         $fileName = $this->fileInfo['name'];
         $fileExt = get_path_ext($this->fileInfo['name']);
@@ -33,8 +32,8 @@ class OnlyOfficePlugin extends PluginBase {
             'apiServer' => $http_header.$dsServer, 
             'url' => $fileUrl,
             'callbackUrl' => "", 
-            'key' => md5_file($localFile), 
-            'time' => filemtime($localFile), 
+            'key' => md5($fileUrl), 
+            'time' => "", 
             'fileType' => $this->fileTypeAlias($fileExt), 
             'title' => $fileName, 
             'compact' => false, 
@@ -65,8 +64,10 @@ class OnlyOfficePlugin extends PluginBase {
 
         //可写权限检测
         if (Action("explorer.auth")->fileCanWrite($path)) {
+            $localFile = $this->pluginLocalFile($this->in['path']);
             $option['mode'] = 'edit';
             $option['canEdit'] = true;
+            $option['time'] = filemtime($localFile);
             $option['key'] = md5($localFile.$option['time']);
             $option['callbackUrl'] = $this->pluginApi.'save&path='.rawurlencode($path);
         }
