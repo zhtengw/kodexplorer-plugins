@@ -4,7 +4,11 @@ CURRDIR=$(cd "$(dirname "$0")";pwd)
 for kod in kodexplorer kodbox
 do
   cd ${CURRDIR}/${kod}-plugins
-  zip -rq plugins-pack-for_${kod}.zip ./
+
+  # Clean up old release zip
+  find ./ -maxdepth 1  -name "*.zip" -print0 | xargs -0 rm
+
+  zip -rq plugins-pack-$(date "+%Y.%m.%d")-for_${kod}.zip ./
 
   for plugin in $(find ./ -maxdepth 1 -type d ! -name .)
   do

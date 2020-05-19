@@ -1,5 +1,5 @@
 # 可道云插件 -- Plugins for KodExplorer and KodBox
-## 支持版本 KodExplorer v4.40, KodBox v1.09 [![](https://img.shields.io/badge/插件包-下载地址-orange.svg)](https://github.com/zhtengw/kodexplorer-plugins/releases/tag/v2020.04.27)
+## 支持版本 KodExplorer v4.40, KodBox v1.09 [![](https://img.shields.io/badge/插件包-下载地址-orange.svg)](https://github.com/zhtengw/kodexplorer-plugins/releases/tag/v2020.05.19)
 
 ### OnlyOffice [![](https://img.shields.io/badge/code-for_kodexplorer-green.svg)](https://github.com/zhtengw/kodexplorer-plugins/tree/master/kodexplorer-plugins/OnlyOffice) [![](https://img.shields.io/badge/code-for_kodbox-blue.svg)](https://github.com/zhtengw/kodexplorer-plugins/tree/master/kodbox-plugins/OnlyOffice)
 在线编辑office文档，此插件要求自己部署OnlyOffice文档服务器，可以使用docker快速部署：
