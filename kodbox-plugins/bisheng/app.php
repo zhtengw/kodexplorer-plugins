@@ -18,13 +18,13 @@ class bishengPlugin extends PluginBase {
         $fileUrl = $this->filePathLinkOut($this->in['path']);
         $fileName = $this->fileInfo['name'];
         $fileExt = get_path_ext($this->fileInfo['name']);
-        
+
         //show_tips(json_encode(Session::get('kodUser')));
         $config = $this->getConfig();
         $apiServer = $config['apiServer'].'/apps/editor/openPreview?callURL=';
         $options = array(
             'doc' => array(
-                'docId' => md5($fileUrl),
+                'docId' => $this->fileInfo['hashMd5'],
                 'title' => $fileName,
                 //'mime_type' => mime_content_type($fileName),
                 'fetchUrl' => $fileUrl,
@@ -55,10 +55,7 @@ class bishengPlugin extends PluginBase {
 
         //可写权限检测
         if (Action("explorer.auth")->fileCanWrite($path)) {
-            $localFile = $this->pluginLocalFile($this->in['path']);
-            $timestamp = filemtime($localFile);
             array_push($options['user']['privilege'],'FILE_WRITE');
-            $options['doc']['docId'] = md5($localFile.$timestamp);
             $options['doc']['callback'] = $this->pluginApi.'save&path='.rawurlencode($path).'&api='.$config['apiServer'];
             //if(!$options['doc']['opts']['pdf_viewer'])
             if(!$options['doc']['pdf_viewer']) $apiServer = $config['apiServer'].'/apps/editor/openEditor?callURL=';

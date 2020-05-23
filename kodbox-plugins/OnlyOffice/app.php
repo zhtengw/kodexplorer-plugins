@@ -32,8 +32,7 @@ class OnlyOfficePlugin extends PluginBase {
             'apiServer' => $http_header.$dsServer, 
             'url' => $fileUrl,
             'callbackUrl' => "", 
-            'key' => md5($fileUrl), 
-            'time' => "", 
+            'key' => $this->fileInfo['hashMd5'], 
             'fileType' => $this->fileTypeAlias($fileExt), 
             'title' => $fileName, 
             'compact' => false, 
@@ -64,11 +63,8 @@ class OnlyOfficePlugin extends PluginBase {
 
         //可写权限检测
         if (Action("explorer.auth")->fileCanWrite($path)) {
-            $localFile = $this->pluginLocalFile($this->in['path']);
             $option['mode'] = 'edit';
             $option['canEdit'] = true;
-            $option['time'] = filemtime($localFile);
-            $option['key'] = md5($localFile.$option['time']);
             $option['callbackUrl'] = $this->pluginApi.'save&path='.rawurlencode($path);
         }
         //内部对话框打开时，使用紧凑显示
