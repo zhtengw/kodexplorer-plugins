@@ -24,8 +24,14 @@ class OnlyOfficePlugin extends PluginBase {
                 show_tips(LNG('not_exists'.$path));
             }
         }
-	$fileName = get_path_this(rawurldecode($this->in['path']));
+        $parentDir = get_path_father($path);
+	    $fileName = get_path_this(rawurldecode($this->in['path']));
         $fileExt = get_path_ext($path);
+        
+        
+        //explorer::mkdir($parentDir.'/.hist-'.$fileName);
+        //explorer::mkfile($parentDir.'/.hist-'.$fileName.'/histdata.txt');
+        //explorer::mkfile($parentDir.'/histdata.txt');
         
         $config = $this->getConfig();
         if (substr(APP_HOST,0,8) == 'https://') {
@@ -36,6 +42,10 @@ class OnlyOfficePlugin extends PluginBase {
             $http_header = 'http://';
         }
         
+        //https://api.onlyoffice.com/editors/callback
+        //https://api.onlyoffice.com/editors/history
+        //https://blog.51cto.com/8200238/2085279
+        //https://github.com/ONLYOFFICE/document-server-integration/blob/master/web/documentserver-example/php/webeditor-ajax.php
         $option = array(
             'apiServer' => $http_header.$dsServer, 
             'url' => $fileUrl,
@@ -80,7 +90,7 @@ class OnlyOfficePlugin extends PluginBase {
             }
         }
         //可写权限检测
-        if (check_file_writable_user($path)) {
+        if (!$config['previewMode'] && check_file_writable_user($path)) {
             $option['mode'] = 'edit';
             $option['canEdit'] = true;
             $option['key'] = md5($path.$option['time']);

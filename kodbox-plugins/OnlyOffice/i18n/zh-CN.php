@@ -3,6 +3,7 @@ return array(
 	"OnlyOffice.meta.name"				=> "OnlyOffice 在线编辑器",
 	"OnlyOffice.meta.title"				=> "OnlyOffice 在线编辑器",
 	"OnlyOffice.meta.desc"				=> "在线查看和编辑Office文档",
+	"OnlyOffice.Config.previewMode"     => "预览模式",
 	"OnlyOffice.Config.apiServer"		=> "服务器接口",
 	"OnlyOffice.Config.apiServerDesc"	=> "
 	    <div class='can-select pt-10'>

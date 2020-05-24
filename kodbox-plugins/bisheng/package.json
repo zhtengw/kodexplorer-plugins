@@ -2,7 +2,7 @@
 	"id":"bisheng",
 	"name":"{{LNG['bisheng.meta.name']}}",
 	"title":"{{LNG['bisheng.meta.title']}}",
-	"version":"1.3",
+	"version":"1.4",
 	"category":"file",
 	"source":{
 		"icon":"{{pluginHost}}static/images/icon.png",
@@ -21,7 +21,7 @@
 		"formStyle":{
 		    "className":"form-box-title-right",
 			"tabs":{
-				"{{LNG['admin.setting.base']}}":"pluginAuth,openWith,sep001,apiServer,apiKey"
+				"{{LNG['admin.setting.base']}}":"pluginAuth,openWith,sep001,previewMode,apiServer,apiKey"
 			}
 		},
 		"pluginAuth":{
@@ -32,6 +32,11 @@
 			"require":1
 		},
 		"sep001":"<hr/>",
+		"previewMode":{
+			"type":"switch",
+			"value":0,
+			"display":"{{LNG['bisheng.Config.previewMode']}}"
+        },
 		"openWith":{
 			"type":"radio",
 			"value":"dialog",

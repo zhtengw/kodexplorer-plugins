@@ -2,7 +2,7 @@
 	"id":"OnlyOffice",
 	"name":"{{LNG['OnlyOffice.meta.name']}}",
 	"title":"{{LNG['OnlyOffice.meta.title']}}",
-	"version":"2.2",
+	"version":"2.3",
 	"category":"file",
 	"source":{
 		"icon":"{{pluginHost}}static/images/icon.png",
@@ -21,7 +21,7 @@
 		"formStyle":{
 		    "className":"form-box-title-right",
 			"tabs":{
-				"{{LNG['admin.setting.base']}}":"pluginAuth,pluginAuthOpen,sep001,openWith,fileExt,fileSort",
+				"{{LNG['admin.setting.base']}}":"pluginAuth,pluginAuthOpen,sep001,previewMode,openWith,fileExt,fileSort",
 				"{{LNG['OnlyOffice.Config.apiServer']}}":"apiServer-http,apiServer-https"
 			}
 		},
@@ -33,6 +33,11 @@
 			"require":1
 		},
 		"sep001":"<hr/>",
+		"previewMode":{
+			"type":"switch",
+			"value":0,
+			"display":"{{LNG['OnlyOffice.Config.previewMode']}}"
+        },
 		"openWith":{
 			"type":"radio",
 			"value":"dialog",

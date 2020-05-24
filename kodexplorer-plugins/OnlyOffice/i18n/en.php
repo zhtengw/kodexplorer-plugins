@@ -3,6 +3,7 @@ return array(
 	"OnlyOffice.meta.name"				=> "OnlyOffice Online Editor",
 	"OnlyOffice.meta.title"				=> "OnlyOffice Online Editor",
 	"OnlyOffice.meta.desc"				=> "View and Edit office documents online",
+	"OnlyOffice.Config.previewMode"     => "Preview Mode",
     "OnlyOffice.Config.apiServer"		=> "Server API Interface",
 	"OnlyOffice.Config.apiServerDesc"	=> "
 	    <div class='can-select pt-10'>

@@ -2,7 +2,7 @@
 	"id":"OnlyOffice",
 	"name":"{{LNG.OnlyOffice.meta.name}}",
 	"title":"{{LNG.OnlyOffice.meta.title}}",
-	"version":"2.2",
+	"version":"2.3",
 	"category":"file",
 	"source":{
 		"icon":"{{pluginHost}}static/images/icon.png",
@@ -23,7 +23,7 @@
 			"tabs":[
 				{
 					"name":"{{LNG.Plugin.tab.basic}}",
-					"field":["pluginAuth","pluginAuthOpen","sep001","openWith","fileExt","fileSort"]
+					"field":["pluginAuth","pluginAuthOpen","sep001","previewMode","openWith","fileExt","fileSort"]
 				},
 				{
 					"name":"{{LNG.OnlyOffice.Config.apiServer}}",
@@ -39,6 +39,11 @@
 			"require":1
 		},
 		"sep001":"<hr/>",
+		"previewMode":{
+			"type":"switch",
+			"value":0,
+			"display":"{{LNG.OnlyOffice.Config.previewMode}}"
+        },
 		"openWith":{
 			"type":"radio",
 			"value":"dialog",

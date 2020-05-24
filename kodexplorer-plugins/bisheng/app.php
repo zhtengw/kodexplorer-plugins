@@ -68,8 +68,7 @@ class bishengPlugin extends PluginBase {
             }
         }
         //可写权限检测
-//        if (!$options['doc']['opts']['pdf_viewer'] && check_file_writable_user($path)) {
-        if (check_file_writable_user($path)) {
+        if (!$config['previewMode'] && check_file_writable_user($path)) {
             array_push($options['user']['privilege'],'FILE_WRITE');
             $options['doc']['docId'] = md5($path.$timestamp);
             $options['doc']['callback'] = $this->pluginHost.'php/handler.php?act=save&path='.rawurlencode($path).'&api='.$config['apiServer'];

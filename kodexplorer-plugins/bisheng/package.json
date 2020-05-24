@@ -2,7 +2,7 @@
 	"id":"bisheng",
 	"name":"{{LNG.bisheng.meta.name}}",
 	"title":"{{LNG.bisheng.meta.title}}",
-	"version":"1.3",
+	"version":"1.4",
 	"category":"file",
 	"source":{
 		"icon":"{{pluginHost}}static/images/icon.png",
@@ -23,7 +23,7 @@
 			"tabs":[
 				{
 					"name":"{{LNG.Plugin.tab.basic}}",
-					"field":["pluginAuth","openWith","sep001","apiServer","apiKey"]
+					"field":["pluginAuth","openWith","sep001","previewMode","apiServer","apiKey"]
 				}
 			]
 		},
@@ -34,6 +34,12 @@
 			"desc":"{{LNG.Plugin.config.authDesc}}",
 			"require":1
 		},
+		"sep001":"<hr/>",
+		"previewMode":{
+			"type":"switch",
+			"value":0,
+			"display":"{{LNG.bisheng.Config.previewMode}}"
+        },
 		"openWith":{
 			"type":"radio",
 			"value":"dialog",
@@ -43,7 +49,6 @@
 				["window","{{LNG.Plugin.Config.openWithWindow}}"]
 			]
 		},
-		"sep001":"<hr/>",
 		"fileExt":{
 			"type":"tags",
 			"display":"{{LNG.Plugin.Config.fileExt}}",
