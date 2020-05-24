@@ -24,7 +24,8 @@ class bishengPlugin extends PluginBase {
         $apiServer = $config['apiServer'].'/apps/editor/openPreview?callURL=';
         $options = array(
             'doc' => array(
-                'docId' => $this->fileInfo['hashMd5'],
+                // docID 必须不为null，分享页面fileInfo['hashMd5']，非分享页面$this->fileInfo['fileInfo']['hashMd5']
+                'docId' => $this->fileInfo['hashMd5'] ? : $this->fileInfo['fileInfo']['hashMd5'],
                 'title' => $fileName,
                 //'mime_type' => mime_content_type($fileName),
                 'fetchUrl' => $fileUrl,
@@ -54,7 +55,7 @@ class bishengPlugin extends PluginBase {
         }
 
         //可写权限检测
-        if (Action("explorer.auth")->fileCanWrite($path)) {
+        if (!$config['previewMode'] && Action("explorer.auth")->fileCanWrite($path)) {
             array_push($options['user']['privilege'],'FILE_WRITE');
             $options['doc']['callback'] = $this->pluginApi.'save&path='.rawurlencode($path).'&api='.$config['apiServer'];
             //if(!$options['doc']['opts']['pdf_viewer'])

@@ -32,7 +32,8 @@ class OnlyOfficePlugin extends PluginBase {
             'apiServer' => $http_header.$dsServer, 
             'url' => $fileUrl,
             'callbackUrl' => "", 
-            'key' => $this->fileInfo['hashMd5'], 
+            // key 必须不为null，分享页面fileInfo['hashMd5']，非分享页面$this->fileInfo['fileInfo']['hashMd5']
+            'key' => $this->fileInfo['hashMd5'] ? : $this->fileInfo['fileInfo']['hashMd5'], 
             'fileType' => $this->fileTypeAlias($fileExt), 
             'title' => $fileName, 
             'compact' => false, 
@@ -62,7 +63,7 @@ class OnlyOfficePlugin extends PluginBase {
         }
 
         //可写权限检测
-        if (Action("explorer.auth")->fileCanWrite($path)) {
+        if (!$config['previewMode'] && Action("explorer.auth")->fileCanWrite($path)) {
             $option['mode'] = 'edit';
             $option['canEdit'] = true;
             $option['callbackUrl'] = $this->pluginApi.'save&path='.rawurlencode($path);
