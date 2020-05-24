@@ -19,13 +19,12 @@ class bishengPlugin extends PluginBase {
         $fileName = $this->fileInfo['name'];
         $fileExt = get_path_ext($this->fileInfo['name']);
 
-        //show_tips(json_encode(Session::get('kodUser')));
+        //show_tips(IO::hashSimple($path));
         $config = $this->getConfig();
         $apiServer = $config['apiServer'].'/apps/editor/openPreview?callURL=';
         $options = array(
             'doc' => array(
-                // docID 必须不为null，分享页面fileInfo['hashMd5']，非分享页面$this->fileInfo['fileInfo']['hashMd5']
-                'docId' => $this->fileInfo['hashMd5'] ? : $this->fileInfo['fileInfo']['hashMd5'],
+                'docId' => IO::hashSimple($path),
                 'title' => $fileName,
                 //'mime_type' => mime_content_type($fileName),
                 'fetchUrl' => $fileUrl,

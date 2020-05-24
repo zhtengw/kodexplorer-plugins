@@ -2,7 +2,7 @@
 	"id":"OnlyOffice",
 	"name":"{{LNG['OnlyOffice.meta.name']}}",
 	"title":"{{LNG['OnlyOffice.meta.title']}}",
-	"version":"2.3",
+	"version":"2.4",
 	"category":"file",
 	"source":{
 		"icon":"{{pluginHost}}static/images/icon.png",

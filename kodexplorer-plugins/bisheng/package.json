@@ -2,7 +2,7 @@
 	"id":"bisheng",
 	"name":"{{LNG.bisheng.meta.name}}",
 	"title":"{{LNG.bisheng.meta.title}}",
-	"version":"1.4",
+	"version":"1.5",
 	"category":"file",
 	"source":{
 		"icon":"{{pluginHost}}static/images/icon.png",

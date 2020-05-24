@@ -29,8 +29,8 @@ class OnlyOfficePlugin extends PluginBase {
         $fileExt = get_path_ext($path);
         
         
-        //explorer::mkdir($parentDir.'/.hist-'.$fileName);
-        //explorer::mkfile($parentDir.'/.hist-'.$fileName.'/histdata.txt');
+        //mkdir($parentDir.'/.hist-'.$fileName);
+        //mkfile($parentDir.'/.hist-'.$fileName.'/histdata.txt');
         //explorer::mkfile($parentDir.'/histdata.txt');
         
         $config = $this->getConfig();
@@ -50,8 +50,7 @@ class OnlyOfficePlugin extends PluginBase {
             'apiServer' => $http_header.$dsServer, 
             'url' => $fileUrl,
             'callbackUrl' => "", 
-            'key' => md5_file($path), 
-            'time' => filemtime($path), 
+            'key' => file_hash_simple($path), 
             'fileType' => $this->fileTypeAlias($fileExt), 
             'title' => $fileName, 
             'compact' => false, 
@@ -93,7 +92,6 @@ class OnlyOfficePlugin extends PluginBase {
         if (!$config['previewMode'] && check_file_writable_user($path)) {
             $option['mode'] = 'edit';
             $option['canEdit'] = true;
-            $option['key'] = md5($path.$option['time']);
             $option['callbackUrl'] = $this->pluginHost.'php/save.php?path='.rawurlencode($path);
         }
         //内部对话框打开时，使用紧凑显示

@@ -32,7 +32,7 @@ class bishengPlugin extends PluginBase {
         //show_tips(json_encode($_SESSION));
         $options = array(
             'doc' => array(
-                'docId' => md5_file($path),
+                'docId' => file_hash_simple($path),
                 'title' => $fileName,
                 //'mime_type' => mime_content_type($fileName),
                 'fetchUrl' => $fileUrl,
@@ -54,7 +54,6 @@ class bishengPlugin extends PluginBase {
             $options['user']['privilege'] = array('FILE_READ',);
         }
         
-        $timestamp = filemtime($path);
         if (!$GLOBALS['isRoot']) {
             /** * 下载&打印&导出:权限取决于文件是否可以下载;(管理员无视所有权限拦截) * 1. 当前用户是否允许下载 * 2. 所在群组文件，用户在群组内的权限是否可下载 * 3. 文件分享,限制了下载 */
             if ($GLOBALS['auth'] && !$GLOBALS['auth']['explorer.fileDownload']) {
@@ -70,7 +69,6 @@ class bishengPlugin extends PluginBase {
         //可写权限检测
         if (!$config['previewMode'] && check_file_writable_user($path)) {
             array_push($options['user']['privilege'],'FILE_WRITE');
-            $options['doc']['docId'] = md5($path.$timestamp);
             $options['doc']['callback'] = $this->pluginHost.'php/handler.php?act=save&path='.rawurlencode($path).'&api='.$config['apiServer'];
             if(!$options['doc']['pdf_viewer']) $apiServer = $config['apiServer'].'/apps/editor/openEditor?callURL=';
         }
