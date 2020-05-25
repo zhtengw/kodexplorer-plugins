@@ -21,8 +21,8 @@
 		"formStyle":{
 		    "className":"form-box-title-right",
 			"tabs":{
-				"{{LNG['admin.setting.base']}}":"pluginAuth,pluginAuthOpen,sep001,previewMode,openWith,fileExt,fileSort",
-				"{{LNG['OnlyOffice.Config.apiServer']}}":"apiServer-http,apiServer-https"
+				"{{LNG['OnlyOffice.Config.apiServer']}}":"apiServer-http,apiServer-https",
+				"{{LNG['admin.setting.base']}}":"pluginAuth,pluginAuthOpen,sep001,previewMode,openWith,fileExt,fileSort"
 			}
 		},
 		"pluginAuth":{
@@ -61,7 +61,7 @@
 		},
 		"apiServer-http":{
 			"type":"input",
-			"value":"onlyoffice.dzz.cc",
+			"value":"",
 			"display":"http://",
 			"desc":"<span class='grey-8'>/web-apps/apps/api/documents/api.js</span>"
         },
