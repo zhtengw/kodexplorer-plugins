@@ -10,7 +10,7 @@ return array(
 	    <div class='can-select pt-10'>
 	    The address of the bisheng API, KodExplorer can be accessed from this address either.<br/>
 	    If the port used is other than 80 or 443, you should specify the port.<br/>
-	    See <a href='https://www.bishengoffice.com/apps/blog/posts/install.html' target='_blank'>Bisheng offical documents</a> for how to deploy server.</div>",
+	    <span class='grey-8'>See <a href='https://www.bishengoffice.com/apps/blog/posts/install.html' target='_blank'>Bisheng offical documents</a> for how to deploy server.</span></div>",
 	"bisheng.Config.apiKey"         => "api key",
 	"bisheng.Config.apiKeyDesc"     => "
 	    <div class='can-select pt-10'>
