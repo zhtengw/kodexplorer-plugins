@@ -60,7 +60,7 @@
 		},
 		"apiServer":{
 			"type":"input",
-			"value":"https://home.aten.pw:4443",
+			"value":"http://127.0.0.1:8001",
 			"display":"{{LNG['bisheng.Config.apiServer']}}",
 			"desc":"{{LNG['bisheng.Config.apiServerDesc']}}",
 			"require":1

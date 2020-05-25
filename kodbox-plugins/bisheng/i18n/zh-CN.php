@@ -10,7 +10,7 @@ return array(
 	    <div class='can-select pt-10'>
 	    毕升Office API的地址，要求和当前打开KodExplorer的地址可以互相访问，否则将无法保存文档。<br/>
 	    如果端口不是80或443，需要指明端口号。<br/>
-	    部署方式请参考<a href='https://www.bishengoffice.com/apps/blog/posts/install.html' target='_blank'>毕升官方文档</a>。</div>",
+	    <span class='grey-8'>服务端部署方式请参考<a href='https://www.bishengoffice.com/apps/blog/posts/install.html' target='_blank'>毕升官方文档</a>。</span></div>",
 	"bisheng.Config.apiKey"         => "api key",
 	"bisheng.Config.apiKeyDesc"     => "
 	    <div class='can-select pt-10'>
