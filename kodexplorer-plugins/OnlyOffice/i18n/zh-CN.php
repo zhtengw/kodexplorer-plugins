@@ -10,5 +10,13 @@ return array(
 	    OnlyOffice API的地址必须要与部署KodExplorer的地址是相同的协议；<br>
 	    如果KodExplorer是http站点，则OnlyOffice API的http地址不能为空；<br>
 	    如果KodExplorer是https站点，则OnlyOffice API的https地址不能为空；<br>
-	    另外，如果端口不是80或443，需要指明端口号。</div>"
+	    另外，如果端口不是80或443，需要指明端口号。</div>
+	    <div class='grey-8'>
+	    <br>
+	    OnlyOffice服务端部署方法，以下二选一：
+	    <br>
+	    1. <a href='https://helpcenter.onlyoffice.com/server/document.aspx' target='_blank'>OnlyOffice官方手册</a>
+	    <br>
+	    2. <a href='https://doc.kodcloud.com/vip/#/onlyoffice/linux' target='_blank'>可道云office部署手册</a> (使用此插件不需要企业版授权)
+	    </div>"
 );

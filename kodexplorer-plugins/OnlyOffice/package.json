@@ -22,12 +22,12 @@
 			"className":"",
 			"tabs":[
 				{
-					"name":"{{LNG.Plugin.tab.basic}}",
-					"field":["pluginAuth","pluginAuthOpen","sep001","previewMode","openWith","fileExt","fileSort"]
-				},
-				{
 					"name":"{{LNG.OnlyOffice.Config.apiServer}}",
 					"field":["apiServer-http","apiServer-https"]
+				},
+				{
+					"name":"{{LNG.Plugin.tab.basic}}",
+					"field":["pluginAuth","pluginAuthOpen","sep001","previewMode","openWith","fileExt","fileSort"]
 				}
 			]
 		},
@@ -68,7 +68,7 @@
 		"apiServer-http":{
 		    "className":"form-box-title-right",
 			"type":"input",
-			"value":"onlyoffice.dzz.cc",
+			"value":"",
 			"display":"http://",
 			"desc":"<span class='grey-8'>/web-apps/apps/api/documents/api.js</span>"
         },
