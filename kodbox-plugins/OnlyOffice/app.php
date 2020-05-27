@@ -28,53 +28,73 @@ class OnlyOfficePlugin extends PluginBase {
             $http_header = 'http://';
         }
 
-        $option = array(
-            'apiServer' => $http_header.$dsServer, 
-            'url' => $fileUrl,
-            'callbackUrl' => "", 
-            'key' => IO::hashSimple($path), 
-            'fileType' => $this->fileTypeAlias($fileExt), 
-            'title' => $fileName, 
-            'compact' => false, 
+        $apiServer = $http_header.$dsServer;
+        $options = [
+            'document' => [
+                'fileType' => $this->fileTypeAlias($fileExt),
+                'key' => IO::hashSimple($path),
+                'title' => $fileName,
+                'url' => $fileUrl,
+                'permissions' => [
+                    'download' => true,
+                    'edit' => false,
+                    'print' => true,
+                ],
+            ],
             'documentType' => $this->getDocumentType($fileExt), 
-            'user' => Session::get('kodUser.nickName').' ('.Session::get('kodUser.name').')', 
-            'UID' => Session::get('kodUser.userID'), 
-            'mode' => 'view', 
-            'type' => 'desktop', 
-            'lang' => I18n::getType(),
-            'canDownload' => false, 
-            'canEdit' => false, 
-            'canPrint' => false,
-            );
+            'type' => 'desktop',
+            'editorConfig' => [
+                'callbackUrl' => "",
+                'lang' => I18n::getType(),
+                'mode' => 'view',
+                'user' => [
+                    'id' => Session::get('kodUser.userID'),
+                    'name' => Session::get('kodUser.nickName').' ('.Session::get('kodUser.name').')',
+                ],
+                'customization' => [
+                    'chat' => true,
+                    'commentAuthorOnly' => true,
+                    'comments' => true,
+                    'compactHeader' => false,
+                    'compactToolbar' => false,
+                    'help' => false,
+                    'toolbarNoTabs' => false,
+                    'hideRightMenu' => false,
+                ],
+            ],
+            'height' => "100%",
+            'width' => "100%"
+        ];
 
         // 设定未登录用户的文档信息
         if (Session::get('kodUser') == null) {
-            $option['UID'] = 'guest';
-            $option['user'] = 'guest';
-            $option['canDownload'] = false;
-            $option['canPrint'] = false;
+            $options['user']['id'] = 'guest';
+            $options['user']['name'] = 'guest';
+            $options['document']['permissions']['download'] = false;
+            $options['document']['permissions']['print'] = false;
         }
         
         //可读权限检测，可读则可下载及打印
         if (Action("explorer.auth")->fileCanRead($path)) {
-            $option['canDownload'] = true;
-            $option['canPrint'] = true;
+            $options['document']['permissions']['download'] = true;
+            $options['document']['permissions']['print'] = true;
         }
 
         //可写权限检测
         if (!$config['previewMode'] && Action("explorer.auth")->fileCanWrite($path)) {
-            $option['mode'] = 'edit';
-            $option['canEdit'] = true;
-            $option['callbackUrl'] = $this->pluginApi.'save&path='.rawurlencode($path);
+            $options['editorConfig']['mode'] = 'edit';
+            $options['document']['permissions']['edit'] = true;
+            $options['editorConfig']['callbackUrl'] = $this->pluginApi.'save&path='.rawurlencode($path);
         }
         //内部对话框打开时，使用紧凑显示
         if ($config['openWith'] == 'dialog') {
-            $option['compact'] = true;
-            $option['title'] = " ";
+            $options['editorConfig']['customization']['compactHeader'] = true;
+            $options['editorConfig']['customization']['hideRightMenu'] = true;
+            $options['document']['title'] = " ";
         }
         //匹配移动端
         if (is_wap()) {
-            $option['type'] = 'mobile';
+            $options['type'] = 'mobile';
         }
         
         if (strlen($dsServer) > 0) {
