@@ -1,12 +1,11 @@
 # 可道云插件 -- Plugins for KodExplorer and KodBox
-## 支持版本 KodExplorer v4.40, KodBox v1.09 [![](https://img.shields.io/badge/插件包-下载地址-orange.svg)](https://github.com/zhtengw/kodexplorer-plugins/releases/tag/v2020.05.24)
+## 支持版本 KodExplorer v4.40, KodBox v1.09 [![](https://img.shields.io/badge/插件包-下载地址-orange.svg)](https://github.com/zhtengw/kodexplorer-plugins/releases/latest)
 
 ### OnlyOffice [![](https://img.shields.io/badge/code-for_kodexplorer-green.svg)](https://github.com/zhtengw/kodexplorer-plugins/tree/master/kodexplorer-plugins/OnlyOffice) [![](https://img.shields.io/badge/code-for_kodbox-blue.svg)](https://github.com/zhtengw/kodexplorer-plugins/tree/master/kodbox-plugins/OnlyOffice)
-在线编辑office文档，此插件要求自己部署OnlyOffice文档服务器，可以使用docker快速部署：
-```bash
-docker pull onlyoffice/documentserver
-docker run --name onlyoffice --restart always -i -t -d -p 8000:80 onlyoffice/documentserver  
-```
+在线编辑office文档，此插件要求自己部署OnlyOffice文档服务器，部署方法以下二选一：
+1. [OnlyOffice官方手册](https://helpcenter.onlyoffice.com/server/document.aspx)
+2. [可道云office部署手册](https://doc.kodcloud.com/vip/#/onlyoffice/linux)
+
 
 ### 毕升Office [![](https://img.shields.io/badge/code-for_kodexplorer-green.svg)](https://github.com/zhtengw/kodexplorer-plugins/tree/master/kodexplorer-plugins/bisheng) [![](https://img.shields.io/badge/code-for_kodbox-blue.svg)](https://github.com/zhtengw/kodexplorer-plugins/tree/master/kodbox-plugins/bisheng)
 在线编辑office文档，服务端部署方式请参考[毕升官方文档](https://www.bishengoffice.com/apps/blog/posts/install.html)。
