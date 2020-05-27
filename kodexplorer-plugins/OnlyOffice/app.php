@@ -46,62 +46,82 @@ class OnlyOfficePlugin extends PluginBase {
         //https://api.onlyoffice.com/editors/history
         //https://blog.51cto.com/8200238/2085279
         //https://github.com/ONLYOFFICE/document-server-integration/blob/master/web/documentserver-example/php/webeditor-ajax.php
-        $option = array(
-            'apiServer' => $http_header.$dsServer, 
-            'url' => $fileUrl,
-            'callbackUrl' => "", 
-            'key' => file_hash_simple($path), 
-            'fileType' => $this->fileTypeAlias($fileExt), 
-            'title' => $fileName, 
-            'compact' => false, 
-            'documentType' => $this->getDocumentType($fileExt), 
-            'user' => $_SESSION['kodUser']['nickName'].' ('.$_SESSION['kodUser']['name'].')', 
-            'UID' => $_SESSION['kodUser']['userID'], 
-            'mode' => 'view',
-            'type' => 'desktop', 
-            'lang' => I18n::getType(),
-            'canDownload' => true, 
-            'canEdit' => false, 
-            'canPrint' => true,
-            );
+        $apiServer = $http_header.$dsServer;
+        $options = [
+            'document' => [
+                'fileType' => $this->fileTypeAlias($fileExt),
+                'key' => file_hash_simple($path),
+                'title' => $fileName,
+                'url' => $fileUrl,
+                'permissions' => [
+                    'download' => true,
+                    'edit' => false,
+                    'print' => true,
+                ],
+            ],
+            'documentType' => $this->getDocumentType($fileExt),
+            'type' => 'desktop',
+            'editorConfig' => [
+                'callbackUrl' => "",
+                'lang' => I18n::getType(),
+                'mode' => 'view',
+                'user' => [
+                    'id' => $_SESSION['kodUser']['userID'],
+                    'name' => $_SESSION['kodUser']['nickName'].' ('.$_SESSION['kodUser']['name'].')',
+                ],
+                'customization' => [
+                    'chat' => true,
+                    'commentAuthorOnly' => true,
+                    'comments' => true,
+                    'compactHeader' => false,
+                    'compactToolbar' => false,
+                    'help' => false,
+                    'toolbarNoTabs' => false,
+                    'hideRightMenu' => false,
+                ],
+            ],
+            'height' => "100%",
+            'width' => "100%"
+        ];
             
         // 设定未登录用户的文档信息
         if (!isset($_SESSION['kodUser'])) {
-            $option['UID'] = 'guest';
-            $option['user'] = 'guest';
-            $option['canDownload'] = false;
-            $option['canPrint'] = false;
+            $options['user']['id'] = 'guest';
+            $options['user']['name'] = 'guest';
+            $options['document']['permissions']['download'] = false;
+            $options['document']['permissions']['print'] = false;
         }
         
         if (!$GLOBALS['isRoot']) {
             /** * 下载&打印&导出:权限取决于文件是否可以下载;(管理员无视所有权限拦截) * 1. 当前用户是否允许下载 * 2. 所在群组文件，用户在群组内的权限是否可下载 * 3. 文件分享,限制了下载 */
             if ($GLOBALS['auth'] && !$GLOBALS['auth']['explorer.fileDownload']) {
-                $option['canDownload'] = false;
-                $option['canPrint'] = false;
+                $options['document']['permissions']['download'] = false;
+                $options['document']['permissions']['print'] = false;
             }
             if ($GLOBALS['kodShareInfo'] && $GLOBALS['kodShareInfo']['notDownload'] == '1') {
-                $option['canDownload'] = false;
-                $option['canPrint'] = false;
+                $options['document']['permissions']['download'] = false;
+                $options['document']['permissions']['print'] = false;
             }
             if ($GLOBALS['kodPathRoleGroupAuth'] && !$GLOBALS['kodPathRoleGroupAuth']['explorer.fileDownload']) {
-                $option['canDownload'] = false;
-                $option['canPrint'] = false;
+                $options['document']['permissions']['download'] = false;
+                $options['document']['permissions']['print'] = false;
             }
         }
         //可写权限检测
         if (!$config['previewMode'] && check_file_writable_user($path)) {
-            $option['mode'] = 'edit';
-            $option['canEdit'] = true;
-            $option['callbackUrl'] = $this->pluginHost.'php/save.php?path='.rawurlencode($path);
+            $options['editorConfig']['mode'] = 'edit';
+            $options['document']['permissions']['edit'] = true;
+            $options['editorConfig']['callbackUrl'] = $this->pluginHost.'php/save.php?path='.rawurlencode($path);
         }
         //内部对话框打开时，使用紧凑显示
         if ($config['openWith'] == 'dialog') {
-            $option['compact'] = true;
-            $option['title'] = " ";
+            $options['editorConfig']['customization']['compactHeader'] = true;
+            $options['editorConfig']['customization']['hideRightMenu'] = true;
+            $options['document']['title'] = " ";
         }
         //匹配移动端
         if (is_wap()) {
-            $option['type'] = 'mobile';
+            $options['type'] = 'mobile';
         }
         if (strlen($dsServer) > 0) {
             include($this->pluginPath.'/php/office.php');
