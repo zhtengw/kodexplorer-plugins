@@ -3,7 +3,14 @@ return array(
 	"OnlyOffice.meta.name"				=> "OnlyOffice 在线编辑器",
 	"OnlyOffice.meta.title"				=> "OnlyOffice 在线编辑器",
 	"OnlyOffice.meta.desc"				=> "在线查看和编辑Office文档",
+	"OnlyOffice.clear.title"            => "清空文档历史",
+	"OnlyOffice.Config.office"          => "Office设置",
 	"OnlyOffice.Config.previewMode"     => "预览模式",
+	"OnlyOffice.Config.editorOpt"       => "编辑器设置",
+	"OnlyOffice.Config.chat"            => "开启聊天",
+	"OnlyOffice.Config.comments"        => "开启评论",
+	"OnlyOffice.Config.help"            => "显示帮助",
+	"OnlyOffice.Config.history"         => "文档历史",
 	"OnlyOffice.Config.apiServer"		=> "服务器接口",
 	"OnlyOffice.Config.apiServerDesc"	=> "
 	    <div class='can-select pt-10'>

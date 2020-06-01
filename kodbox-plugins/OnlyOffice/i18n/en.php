@@ -3,7 +3,14 @@ return array(
 	"OnlyOffice.meta.name"				=> "OnlyOffice Online Editor",
 	"OnlyOffice.meta.title"				=> "OnlyOffice Online Editor",
 	"OnlyOffice.meta.desc"				=> "View and Edit office documents online",
+	"OnlyOffice.clear.title"            => "Clean Document History",
+	"OnlyOffice.Config.office"          => "Office Settings",
 	"OnlyOffice.Config.previewMode"     => "Preview Mode",
+	"OnlyOffice.Config.editorOpt"       => "Editor Options",
+	"OnlyOffice.Config.chat"            => "Chat",
+	"OnlyOffice.Config.comments"        => "Comments",
+	"OnlyOffice.Config.help"            => "Help",
+	"OnlyOffice.Config.history"         => "Documents History",
     "OnlyOffice.Config.apiServer"		=> "Document Server API",
 	"OnlyOffice.Config.apiServerDesc"	=> "
 	    <div class='can-select pt-10'>
