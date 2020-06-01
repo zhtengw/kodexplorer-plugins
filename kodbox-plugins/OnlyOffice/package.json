@@ -2,7 +2,7 @@
 	"id":"OnlyOffice",
 	"name":"{{LNG['OnlyOffice.meta.name']}}",
 	"title":"{{LNG['OnlyOffice.meta.title']}}",
-	"version":"2.4",
+	"version":"3.0",
 	"category":"file",
 	"source":{
 		"icon":"{{pluginHost}}static/images/icon.png",
@@ -22,7 +22,8 @@
 		    "className":"form-box-title-right",
 			"tabs":{
 				"{{LNG['OnlyOffice.Config.apiServer']}}":"apiServer-http,apiServer-https",
-				"{{LNG['admin.setting.base']}}":"pluginAuth,pluginAuthOpen,sep001,previewMode,openWith,fileExt,fileSort"
+				"{{LNG['admin.setting.base']}}":"pluginAuth,pluginAuthOpen,sep001,openWith,fileExt,fileSort",
+				"{{LNG['OnlyOffice.Config.office']}}":"previewMode,editorOpt,history"
 			}
 		},
 		"pluginAuth":{
@@ -33,11 +34,6 @@
 			"require":1
 		},
 		"sep001":"<hr/>",
-		"previewMode":{
-			"type":"switch",
-			"value":0,
-			"display":"{{LNG['OnlyOffice.Config.previewMode']}}"
-        },
 		"openWith":{
 			"type":"radio",
 			"value":"dialog",
@@ -51,7 +47,7 @@
 			"type":"tags",
 			"display":"{{LNG['admin.plugin.fileExt']}}",
 			"desc":"{{LNG['admin.plugin.fileExtDesc']}}",
-			"value":"doc,docm,docx,dot,dotm,dotx,epub,fodt,htm,html,mht,odt,pdf,rtf,txt,djvu,xps,fodp,odp,pot,potm,potx,pps,ppsm,ppsx,ppt,pptm,pptx,csv,fods,ods,xls,xlsm,xlsx,xlt,xltm,xltx"
+			"value":"doc,docx,dotx,epub,html,mht,odt,ott,pdf,rtf,txt,djvu,xps,otp,odp,potx,ppt,pptx,csv,ots,ods,xls,xlsx,xltx"
 		},
 		"fileSort":{
 			"type":"number",
@@ -70,6 +66,26 @@
 			"value":"",
 			"display":"https://",
 			"desc":"<span class='grey-8'>/web-apps/apps/api/documents/api.js</span>{{LNG['OnlyOffice.Config.apiServerDesc']}}"
+        },
+		"previewMode":{
+			"type":"switch",
+			"value":0,
+			"display":"{{LNG['OnlyOffice.Config.previewMode']}}"
+        },
+        "editorOpt":{
+            "type":"checkbox",
+            "value":"chat,comments,help",
+            "display":"{{LNG['OnlyOffice.Config.editorOpt']}}",
+            "info":{
+                "chat": "{{LNG['OnlyOffice.Config.chat']}}",
+                "comments":"{{LNG['OnlyOffice.Config.comments']}}",
+                "help":"{{LNG['OnlyOffice.Config.help']}}"
+            }
+        },
+		"history":{
+			"type":"switch",
+			"value":0,
+			"display":"{{LNG['OnlyOffice.Config.history']}}"
         }
 	}
 }
