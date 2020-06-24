@@ -20,7 +20,7 @@ kodReady.push(function() {
         'newDraw': {
             name: "{{LNG.drawio.file.name}}",
             className: "newDraw",
-            icon: "{{pluginHost}}static/images/icon.png",
+            icon: "{{pluginHost}}static/images/drawio.png",
             callback: function() {
                 ui.path.newFile('drawio');
             }
@@ -30,4 +30,6 @@ kodReady.push(function() {
     $.contextMenu.menuAdd(newDrawMenu, '.menu-body-main', false, 'newfile-docx');
     // 工具栏“新建更多”菜单
     $.contextMenu.menuAdd(newDrawMenu, ".tool-path-newfile", false, "newfile-docx");
+    // 桌面模式右键菜单
+    $.contextMenu.menuAdd(newDrawMenu, ".bodymain", false, "newfile-docx");
 });
