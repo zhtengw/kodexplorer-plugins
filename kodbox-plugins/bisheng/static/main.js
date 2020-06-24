@@ -12,6 +12,7 @@ kodReady.push(function() {
         });
     });
     
+    // 右键菜单: 使用毕升预览
     function inArray(arr, val) {
         return arr.some(function(v) {
             return val === v;
@@ -32,32 +33,8 @@ kodReady.push(function() {
                 }
             }
         }
-    // 右键菜单: 使用毕升预览
     var toPDFExt = "doc,docm,docx,dot,dotm,dotx,fodt,odt,fodp,odp,pot,potm,potx,pps,ppsm,ppsx,ppt,pptm,pptx,fods,ods,xls,xlsm,xlsx,xlt,xltm,xltx";
-    Events.bind(
-        'rightMenu.beforeShow@.menu-path-file', function(menu, menuType) {
-        var name = kodApp.pathAction.makeParamItem().name;
-        var ext = pathTools.pathExt(name);
-        var allowExt = inArray(toPDFExt.split(","), ext);
-
-        if (menu.extendViewAsPDF) {
-            if (!allowExt) {
-                $.contextMenu.menuItemHide(menu, 'viewAsPDF');
-            } else {
-                $.contextMenu.menuItemShow(menu, 'viewAsPDF');
-            }
-            return;
-        } else {
-            if (!allowExt) return;
-        }
-        $.contextMenu.menuAdd(viewByBisheng,
-            menu, '.open-with', false);
-
-
-        menu.extendViewAsPDF = true;
-    });
-    Events.bind(
-        'rightMenu.beforeShow@.menu-path-guest-file', function(menu, menuType) {
+    function menuLoad(menu, menuType) {
         var name = kodApp.pathAction.makeParamItem().name;
         var ext = pathTools.pathExt(name);
         var allowExt = inArray(toPDFExt.split(","), ext);
@@ -74,43 +51,10 @@ kodReady.push(function() {
         }
         $.contextMenu.menuAdd(viewByBisheng,menu, '.open-with', false);
         menu.extendViewAsPDF = true;
-    });
-    Events.bind(
-        'rightMenu.beforeShow@.menu-simple-file', function(menu, menuType) {
-        var name = kodApp.pathAction.makeParamItem().name;
-        var ext = pathTools.pathExt(name);
-        var allowExt = inArray(toPDFExt.split(","), ext);
-
-        if (menu.extendViewAsPDF) {
-            if (!allowExt) {
-                $.contextMenu.menuItemHide(menu, 'viewAsPDF');
-            } else {
-                $.contextMenu.menuItemShow(menu, 'viewAsPDF');
-            }
-            return;
-        } else {
-            if (!allowExt) return;
-        }
-        $.contextMenu.menuAdd(viewByBisheng,menu, '.open-with', false);
-        menu.extendViewAsPDF = true;
-    });
-    Events.bind(
-        'rightMenu.beforeShow@.menu-tree-file', function(menu, menuType) {
-        var name = kodApp.pathAction.makeParamItem().name;
-        var ext = pathTools.pathExt(name);
-        var allowExt = inArray(toPDFExt.split(","), ext);
-
-        if (menu.extendViewAsPDF) {
-            if (!allowExt) {
-                $.contextMenu.menuItemHide(menu, 'viewAsPDF');
-            } else {
-                $.contextMenu.menuItemShow(menu, 'viewAsPDF');
-            }
-            return;
-        } else {
-            if (!allowExt) return;
-        }
-        $.contextMenu.menuAdd(viewByBisheng,menu, '.open-with', false);
-        menu.extendViewAsPDF = true;
-    });
+    }
+    
+    Events.bind('rightMenu.beforeShow@.menu-path-file', menuLoad);
+    Events.bind('rightMenu.beforeShow@.menu-path-guest-file', menuLoad);
+    Events.bind('rightMenu.beforeShow@.menu-simple-file', menuLoad);
+    Events.bind('rightMenu.beforeShow@.menu-tree-file', menuLoad);
 });
